@@ -13,12 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load Dashboard Data
 async function loadDashboardData() {
     try {
-        // Load data from JSON files
+        // Load data from API endpoints
         const [dailyData, weeklyData, monthlyData, goalsData] = await Promise.all([
-            fetch('../data/daily-metrics.json').then(r => r.json()).catch(() => []),
-            fetch('../data/weekly-metrics.json').then(r => r.json()).catch(() => []),
-            fetch('../data/monthly-metrics.json').then(r => r.json()).catch(() => []),
-            fetch('../data/sustainability-goals.json').then(r => r.json()).catch(() => [])
+            fetch('http://localhost:5000/api/daily-metrics').then(r => r.json()).catch(() => []),
+            fetch('http://localhost:5000/api/weekly-metrics').then(r => r.json()).catch(() => []),
+            fetch('http://localhost:5000/api/monthly-metrics').then(r => r.json()).catch(() => []),
+            fetch('http://localhost:5000/api/sustainability-goals').then(r => r.json()).catch(() => [])
         ]);
 
         // Update header stats

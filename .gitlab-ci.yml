@@ -4,6 +4,23 @@
 image: python:3.11
 
 stages:
+    - api
+  # ============================================================================
+  # API STAGE (Real Data Collection & API Server)
+  # ============================================================================
+
+  api:real-data:
+    stage: api
+    image: python:3.11
+    script:
+      - pip install flask
+      - echo "Collecting real data..."
+      - python collect_real_data.py
+      - echo "Starting API server..."
+      - nohup python api_server.py &
+      - sleep 10 # Wait for API server to start
+      - echo "API server running for dashboard integration"
+    allow_failure: true
   - test
   - build
   - deploy
