@@ -1,0 +1,107 @@
+{
+  "version": "1.0",
+  "description": "EcoGuard MCP Configuration for External API Access",
+  "servers": [
+    {
+      "name": "electricity-maps",
+      "description": "Real-time and forecast carbon intensity data",
+      "type": "http",
+      "url": "https://api.electricitymap.org/v3",
+      "auth": {
+        "type": "bearer",
+        "token_env": "ELECTRICITY_MAPS_API_KEY"
+      },
+      "tools": [
+        {
+          "name": "get_carbon_intensity",
+          "description": "Get current carbon intensity for a region",
+          "endpoint": "/carbon-intensity/latest",
+          "method": "GET",
+          "params": {
+            "zone": "string (e.g., 'US-CA', 'DE', 'GB')"
+          }
+        },
+        {
+          "name": "get_carbon_forecast",
+          "description": "Get 72-hour carbon intensity forecast",
+          "endpoint": "/carbon-intensity/forecast",
+          "method": "GET",
+          "params": {
+            "zone": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "google-cloud",
+      "description": "Google Cloud carbon footprint and usage data",
+      "type": "http",
+      "url": "https://www.googleapis.com",
+      "auth": {
+        "type": "oauth2",
+        "token_env": "GOOGLE_CLOUD_TOKEN"
+      },
+      "tools": [
+        {
+          "name": "get_carbon_footprint",
+          "description": "Get carbon footprint data from BigQuery",
+          "endpoint": "/bigquery/v2/projects/{project}/datasets/carbon_footprint",
+          "method": "GET",
+          "params": {
+            "project": "string (GCP project ID)",
+            "date_range": "string (YYYY-MM-DD to YYYY-MM-DD)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "prometheus",
+      "description": "GitLab Runner Prometheus metrics",
+      "type": "http",
+      "url": "http://prometheus:9090",
+      "auth": {
+        "type": "none"
+      },
+      "tools": [
+        {
+          "name": "query_metrics",
+          "description": "Query Prometheus metrics",
+          "endpoint": "/api/v1/query",
+          "method": "GET",
+          "params": {
+            "query": "string (PromQL query)"
+          }
+        },
+        {
+          "name": "query_range",
+          "description": "Query metrics over a time range",
+          "endpoint": "/api/v1/query_range",
+          "method": "GET",
+          "params": {
+            "query": "string",
+            "start": "string (Unix timestamp)",
+            "end": "string (Unix timestamp)",
+            "step": "string (e.g., '1m', '5m')"
+          }
+        }
+      ]
+    }
+  ],
+  "environment_variables": {
+    "ELECTRICITY_MAPS_API_KEY": {
+      "description": "API key for Electricity Maps",
+      "required": true,
+      "example": "your-api-key-here"
+    },
+    "GOOGLE_CLOUD_TOKEN": {
+      "description": "OAuth2 token for Google Cloud API access",
+      "required": false,
+      "example": "your-token-here"
+    },
+    "PROMETHEUS_URL": {
+      "description": "URL to Prometheus instance",
+      "required": true,
+      "default": "http://prometheus:9090"
+    }
+  }
+}
