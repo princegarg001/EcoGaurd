@@ -1,0 +1,135 @@
+# EcoGuard Flow: Weekly Optimization (Scheduled Daily)
+# Trigger: Daily at 00:00 UTC
+# Purpose: Analyze resource usage and recommend optimizations
+
+name: Weekly Optimization
+description: Analyze historical metrics and identify optimization opportunities
+
+trigger:
+  type: schedule
+  cron: "0 0 * * *"  # Daily at 00:00 UTC
+  timezone: UTC
+
+steps:
+  - name: Collect Historical Metrics
+    type: data_collection
+    inputs:
+      - time_range: "7d"
+      - metrics_query: "prometheus"
+    outputs:
+      - job_metrics
+      - historical_data
+    timeout: 600
+
+  - name: Analyze Resource Usage
+    agent: resource-optimization
+    inputs:
+      - job_metrics
+      - time_range: "7d"
+    outputs:
+      - heavy_jobs
+      - optimization_suggestions
+      - impact_scores
+    timeout: 600
+    retry:
+      max_attempts: 2
+      backoff: exponential
+
+  - name: Determine Report Frequency
+    type: condition
+    condition: "day_of_week == 'Monday'"  # Only create detailed report on Mondays
+    then:
+      - name: Create Weekly Optimization Report
+        type: issue_creation
+        inputs:
+          - heavy_jobs
+          - optimization_suggestions
+          - impact_scores
+        title: "📊 Weekly Resource Optimization Report - {{ date }}"
+        description: |
+          ## Weekly Optimization Analysis
+          
+          **Period:** Last 7 days
+          **Generated:** {{ timestamp }}
+          
+          ### Summary
+          - **Jobs Analyzed:** {{ heavy_jobs.count }}
+          - **Optimization Opportunities:** {{ optimization_suggestions.count }}
+          
+          ### Top Opportunities
+          {{ optimization_suggestions }}
+          
+          ### Impact Analysis
+          {{ impact_scores }}
+          
+          ### Next Steps
+          1. Review the opportunities above
+          2. Prioritize by impact score
+          3. Implement recommended optimizations
+          4. Monitor metrics to verify improvements
+        labels:
+          - optimization
+          - weekly-report
+          - resource-analysis
+    else:
+      - name: Log Daily Metrics
+        type: metrics_log
+        inputs:
+          - optimization_suggestions
+          - timestamp
+        output_file: dashboards/data/daily-optimization.json
+
+  - name: Create High-Priority Issues
+    type: issue_creation
+    condition: "optimization_suggestions.high_severity > 0"
+    for_each: "optimization_suggestions where severity == 'high'"
+    title: "🔴 [HIGH] {{ item.job_name }}: {{ item.issue_type }}"
+    description: |
+      ## Optimization Opportunity
+      
+      **Job:** {{ item.job_name }}
+      **Issue:** {{ item.issue_type }}
+      **Severity:** HIGH
+      
+      ### Description
+      {{ item.description }}
+      
+      ### Recommendations
+      {{ item.recommendations }}
+      
+      ### Impact
+      - **Estimated Savings:** {{ item.estimated_savings_kwh }} kWh
+      - **Impact Score:** {{ item.impact_score }}/100
+      
+      ### Priority
+      This is a high-priority optimization opportunity. Please address within this sprint.
+    labels:
+      - optimization
+      - high-priority
+      - "{{ item.issue_type }}"
+
+  - name: Update Dashboard
+    agent: dashboard-data
+    inputs:
+      - optimization_suggestions
+      - timestamp
+    outputs:
+      - dashboard_updated
+    timeout: 300
+
+notifications:
+  on_success:
+    - type: slack
+      channel: "#sustainability"
+      message: |
+        📊 Weekly optimization analysis complete!
+        Found {{ optimization_suggestions.count }} opportunities
+        Top priority: {{ optimization_suggestions[0].job_name }}
+  on_failure:
+    - type: slack
+      channel: "#sustainability"
+      message: "⚠️ Weekly optimization analysis failed. Check logs."
+
+schedule:
+  cron: "0 0 * * *"
+  timezone: UTC

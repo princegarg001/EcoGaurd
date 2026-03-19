@@ -1,0 +1,180 @@
+# EcoGuard Flow: Dashboard Update (Scheduled Daily)
+# Trigger: Daily at 01:00 UTC
+# Purpose: Aggregate metrics and update sustainability dashboard
+
+name: Dashboard Update
+description: Aggregate daily metrics and update sustainability dashboard
+
+trigger:
+  type: schedule
+  cron: "0 1 * * *"  # Daily at 01:00 UTC
+  timezone: UTC
+
+steps:
+  - name: Collect Daily Metrics
+    type: data_collection
+    inputs:
+      - time_range: "24h"
+      - sources:
+          - prometheus
+          - gitlab_api
+          - carbon_intensity_api
+    outputs:
+      - daily_metrics
+      - pipeline_data
+      - deployment_data
+    timeout: 600
+    retry:
+      max_attempts: 2
+      backoff: exponential
+
+  - name: Aggregate Metrics
+    agent: dashboard-data
+    inputs:
+      - daily_metrics
+      - pipeline_data
+      - deployment_data
+      - time_range: "24h"
+    outputs:
+      - daily_metrics_aggregated
+      - weekly_totals
+      - monthly_totals
+      - sci_scores
+    timeout: 600
+
+  - name: Update Dashboard Data Files
+    type: file_update
+    inputs:
+      - daily_metrics_aggregated
+      - weekly_totals
+      - monthly_totals
+      - sci_scores
+    files:
+      - dashboards/data/daily-metrics.json
+      - dashboards/data/weekly-metrics.json
+      - dashboards/data/monthly-metrics.json
+      - dashboards/data/summary.json
+    timeout: 300
+
+  - name: Generate Summary Report
+    type: report_generation
+    inputs:
+      - daily_metrics_aggregated
+      - weekly_totals
+      - monthly_totals
+      - sci_scores
+    outputs:
+      - summary_report
+
+  - name: Determine Report Type
+    type: condition
+    condition: "day_of_month == 1"  # First day of month
+    then:
+      - name: Generate Monthly Report
+        type: report_generation
+        inputs:
+          - monthly_totals
+          - sci_scores
+        outputs:
+          - monthly_report
+      
+      - name: Create Monthly Summary Issue
+        type: issue_creation
+        title: "📈 Monthly Sustainability Report - {{ current_month }}"
+        description: |
+          ## Monthly Sustainability Summary
+          
+          **Period:** {{ current_month }}
+          **Generated:** {{ timestamp }}
+          
+          ### Key Metrics
+          {{ monthly_report }}
+          
+          ### Trends
+          - Energy reduction: {{ monthly_totals.energy_reduction_pct }}%
+          - Emissions reduction: {{ monthly_totals.emissions_reduction_pct }}%
+          - SCI Score: {{ sci_scores.current }} (target: {{ sci_scores.target }})
+          
+          ### Goals Progress
+          {{ goals_progress }}
+          
+          ### Next Month Focus
+          {{ recommendations }}
+        labels:
+          - sustainability
+          - monthly-report
+          - metrics
+    else:
+      - name: Check Weekly Report Day
+        type: condition
+        condition: "day_of_week == 'Monday'"
+        then:
+          - name: Create Weekly Summary Issue
+            type: issue_creation
+            title: "📊 Weekly Sustainability Report - Week {{ week_number }}"
+            description: |
+              ## Weekly Sustainability Summary
+              
+              **Period:** {{ week_start }} to {{ week_end }}
+              **Generated:** {{ timestamp }}
+              
+              ### Key Metrics
+              {{ summary_report }}
+              
+              ### Trends
+              - Energy reduction: {{ weekly_totals.energy_reduction_pct }}%
+              - Emissions reduction: {{ weekly_totals.emissions_reduction_pct }}%
+              
+              ### Top Opportunities
+              {{ top_opportunities }}
+              
+              ### Action Items
+              {{ action_items }}
+            labels:
+              - sustainability
+              - weekly-report
+              - metrics
+
+  - name: Check Goal Progress
+    type: condition
+    condition: "any_goal_at_risk == true"
+    then:
+      - name: Alert on At-Risk Goals
+        type: issue_creation
+        title: "⚠️ Sustainability Goal Alert: {{ at_risk_goals }}"
+        description: |
+          ## Goal Progress Alert
+          
+          The following sustainability goals are at risk:
+          
+          {{ at_risk_goals_details }}
+          
+          ### Recommended Actions
+          1. Review current progress
+          2. Identify blockers
+          3. Adjust timeline if needed
+          4. Escalate to team lead
+        labels:
+          - sustainability
+          - goal-alert
+          - high-priority
+
+notifications:
+  on_success:
+    - type: slack
+      channel: "#sustainability"
+      message: |
+        📊 Dashboard updated successfully!
+        
+        **Today's Metrics:**
+        - Energy: {{ daily_metrics_aggregated.total_energy_kwh }} kWh
+        - Emissions: {{ daily_metrics_aggregated.total_emissions_kg_co2 }} kg CO₂e
+        - SCI Score: {{ sci_scores.current }}
+  on_failure:
+    - type: slack
+      channel: "#sustainability"
+      message: "⚠️ Dashboard update failed. Check logs."
+
+schedule:
+  cron: "0 1 * * *"
+  timezone: UTC

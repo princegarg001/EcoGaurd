@@ -1,0 +1,152 @@
+# EcoGuard Flow: Eco Deploy (On Deployment)
+# Trigger: Before deployment or on manual request
+# Purpose: Recommend optimal deployment timing and configuration
+
+name: Eco Deploy
+description: Optimize deployments for minimal environmental impact
+
+trigger:
+  type: deployment
+  events:
+    - initiated
+    - scheduled
+  filters:
+    - environment: production
+    - environment: staging
+
+steps:
+  - name: Analyze Deployment Parameters
+    agent: eco-friendly-deployment
+    inputs:
+      - target_region
+      - deployment_size
+      - current_time
+      - deployment_config
+    outputs:
+      - optimal_time
+      - carbon_savings
+      - alternative_regions
+      - auto_scaling_recommendations
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: exponential
+
+  - name: Determine Communication Strategy
+    type: condition
+    condition: "carbon_savings.savings_percentage > 20"  # Significant savings
+    then:
+      - name: Post Deployment Recommendation
+        type: comment
+        inputs:
+          - optimal_time
+          - carbon_savings
+          - alternative_regions
+          - auto_scaling_recommendations
+        target: deployment_issue
+        template: |
+          ## 🌍 EcoGuard Eco-Friendly Deployment Recommendation
+          
+          ### Recommended Deployment Time
+          **Time:** {{ optimal_time }}
+          **Carbon Intensity:** {{ carbon_savings.carbon_intensity }} gCO₂/kWh
+          
+          ### Environmental Impact
+          - **Estimated Emissions:** {{ carbon_savings.estimated_emissions }} kg CO₂e
+          - **Estimated Savings:** {{ carbon_savings.savings_percentage }}% lower than now
+          - **Forecast Confidence:** {{ carbon_savings.confidence }}%
+          
+          ### Reason
+          {{ carbon_savings.reason }}
+          
+          ### Alternative Regions
+          {{ alternative_regions }}
+          
+          ### Auto-Scaling Recommendations
+          {{ auto_scaling_recommendations }}
+      
+      - name: Create Optimization Issue
+        type: issue_creation
+        condition: "carbon_savings.savings_percentage > 30"
+        title: "🌱 Deployment Optimization: {{ carbon_savings.savings_percentage }}% CO₂ Savings Possible"
+        description: |
+          ## Deployment Optimization Opportunity
+          
+          **Optimal Time:** {{ optimal_time }}
+          **Estimated Savings:** {{ carbon_savings.savings_percentage }}%
+          
+          ### Recommendation
+          {{ carbon_savings.reason }}
+          
+          ### Alternative Regions
+          {{ alternative_regions }}
+          
+          ### Next Steps
+          1. Review the recommended deployment time
+          2. Consider alternative regions if applicable
+          3. Implement auto-scaling recommendations
+          4. Schedule deployment at optimal time
+        labels:
+          - deployment
+          - optimization
+          - eco-friendly
+    else:
+      - name: Post Standard Recommendation
+        type: comment
+        target: deployment_issue
+        template: |
+          ✅ **EcoGuard Deployment Check**: Current time is optimal for deployment.
+          
+          Proceed with deployment as planned.
+
+  - name: Check for Downtime Requirements
+    type: condition
+    condition: "deployment_config.requires_downtime == true"
+    then:
+      - name: Recommend Low-Traffic Window
+        type: comment
+        target: deployment_issue
+        template: |
+          ⏰ **Downtime Scheduling Recommendation**
+          
+          This deployment requires downtime. Recommended low-traffic windows:
+          - {{ low_traffic_windows }}
+          
+          Deploying during these times minimizes user impact and reduces wasted energy.
+
+  - name: Update Dashboard
+    agent: dashboard-data
+    inputs:
+      - deployment_id
+      - optimal_time
+      - carbon_savings
+      - timestamp
+    outputs:
+      - metrics_updated
+    timeout: 300
+
+  - name: Log Metrics
+    type: metrics_log
+    inputs:
+      - deployment_id
+      - target_region
+      - carbon_savings
+      - timestamp
+    output_file: dashboards/data/deployment-emissions.json
+
+notifications:
+  on_success:
+    - type: comment
+      target: deployment_issue
+      message: "✅ Eco-friendly deployment analysis complete"
+    - type: slack
+      channel: "#deployments"
+      message: |
+        🚀 Deployment {{ deployment_id }} analyzed
+        Potential CO₂ savings: {{ carbon_savings.savings_percentage }}%
+  on_failure:
+    - type: comment
+      target: deployment_issue
+      message: "⚠️ Deployment analysis encountered an error"
+
+schedule: null  # Runs on deployment events

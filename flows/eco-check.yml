@@ -1,0 +1,113 @@
+# EcoGuard Flow: Eco Check (On Merge Request)
+# Trigger: Merge request opened or updated
+# Purpose: Analyze code for sustainability issues
+
+name: Eco Check
+description: Analyze code changes for sustainability issues and provide feedback
+
+trigger:
+  type: merge_request
+  events:
+    - opened
+    - updated
+  filters:
+    - target_branch: main
+    - target_branch: develop
+
+steps:
+  - name: Analyze Code for Inefficiencies
+    agent: sustainability-compliance
+    inputs:
+      - mr_diff
+      - file_paths
+      - changed_lines
+    outputs:
+      - issues_found
+      - suggestions
+      - severity_summary
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: exponential
+
+  - name: Evaluate Issue Severity
+    type: condition
+    condition: "issues_found.count > 0"
+    then:
+      - name: Post MR Comment with Feedback
+        type: comment
+        inputs:
+          - suggestions
+          - severity_summary
+        target: merge_request
+        template: |
+          ## 🌱 EcoGuard Sustainability Check
+          
+          Found **{{ issues_found.count }}** efficiency issues:
+          - 🔴 High: {{ severity_summary.high }}
+          - 🟡 Medium: {{ severity_summary.medium }}
+          - 🟢 Low: {{ severity_summary.low }}
+          
+          {{ suggestions }}
+          
+          💡 **Tip:** Fixing these issues can reduce energy consumption and improve performance!
+      
+      - name: Create High-Severity Issues
+        type: issue_creation
+        condition: "severity_summary.high > 0"
+        inputs:
+          - issues_found
+        for_each: "issues_found where severity == 'high'"
+        title: "[Sustainability] {{ item.issue_type }}"
+        description: |
+          ## Issue
+          {{ item.description }}
+          
+          ## Suggestion
+          {{ item.suggestion }}
+          
+          ## Estimated Impact
+          {{ item.estimated_savings }}
+          
+          ## Reference
+          Detected by EcoGuard Sustainability Compliance Agent
+        labels:
+          - sustainability
+          - efficiency
+          - green-code
+          - high-priority
+    else:
+      - name: Post Success Comment
+        type: comment
+        target: merge_request
+        template: |
+          ✅ **EcoGuard Sustainability Check**: No efficiency issues found!
+          
+          Your code follows green software best practices. Keep up the good work! 🌍
+
+  - name: Update MR Labels
+    type: label_update
+    condition: "issues_found.count == 0"
+    labels:
+      - add: eco-friendly
+      - remove: needs-review
+
+  - name: Log Metrics
+    type: metrics_log
+    inputs:
+      - mr_id
+      - issues_found
+      - timestamp
+    output_file: dashboards/data/compliance-metrics.json
+
+notifications:
+  on_success:
+    - type: comment
+      target: merge_request
+      message: "✅ Eco Check completed successfully"
+  on_failure:
+    - type: comment
+      target: merge_request
+      message: "⚠️ Eco Check encountered an error. Please check the logs."
+
+schedule: null  # Runs on every MR event

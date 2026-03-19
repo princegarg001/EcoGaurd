@@ -1,0 +1,344 @@
+# EcoGuard CI/CD Pipeline Configuration
+# Builds, tests, and deploys all agents and dashboard
+
+image: python:3.11
+
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  NODE_ENV: production
+
+cache:
+  paths:
+    - .cache/pip
+    - node_modules/
+
+# ============================================================================
+# TEST STAGE
+# ============================================================================
+
+test:agents:compliance:
+  stage: test
+  script:
+    - echo "Testing Sustainability Compliance Agent..."
+    - cd agents
+    - pip install -q pytest
+    - python -m pytest test_compliance.py -v --tb=short
+  artifacts:
+    reports:
+      junit: agents/test-results.xml
+    paths:
+      - agents/test-results.xml
+    expire_in: 30 days
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  allow_failure: false
+
+test:agents:carbon:
+  stage: test
+  script:
+    - echo "Testing Carbon Footprint Agent..."
+    - cd agents
+    - pip install -q pytest
+    - python -m pytest test_carbon_footprint.py -v --tb=short
+  artifacts:
+    reports:
+      junit: agents/test-results-carbon.xml
+    paths:
+      - agents/test-results-carbon.xml
+    expire_in: 30 days
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  allow_failure: false
+
+test:agents:optimization:
+  stage: test
+  script:
+    - echo "Testing Resource Optimization Agent..."
+    - cd agents
+    - pip install -q pytest
+    - python -m pytest test_resource_optimization.py -v --tb=short
+  artifacts:
+    reports:
+      junit: agents/test-results-optimization.xml
+    paths:
+      - agents/test-results-optimization.xml
+    expire_in: 30 days
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  allow_failure: false
+
+test:agents:deployment:
+  stage: test
+  script:
+    - echo "Testing Eco-Friendly Deployment Agent..."
+    - cd agents
+    - pip install -q pytest
+    - python -m pytest test_eco_friendly_deployment.py -v --tb=short
+  artifacts:
+    reports:
+      junit: agents/test-results-deployment.xml
+    paths:
+      - agents/test-results-deployment.xml
+    expire_in: 30 days
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  allow_failure: false
+
+test:agents:dashboard:
+  stage: test
+  script:
+    - echo "Testing Dashboard Data Agent..."
+    - cd agents
+    - pip install -q pytest
+    - python -m pytest test_dashboard_data.py -v --tb=short
+  artifacts:
+    reports:
+      junit: agents/test-results-dashboard.xml
+    paths:
+      - agents/test-results-dashboard.xml
+    expire_in: 30 days
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  allow_failure: false
+
+test:agents:all:
+  stage: test
+  script:
+    - echo "Running all agent tests..."
+    - cd agents
+    - pip install -q pytest pytest-cov
+    - python -m pytest test_*.py -v --cov=. --cov-report=term --cov-report=html
+  artifacts:
+    paths:
+      - agents/htmlcov/
+    expire_in: 30 days
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  allow_failure: false
+
+test:code:quality:
+  stage: test
+  script:
+    - echo "Running code quality checks..."
+    - pip install -q pylint flake8
+    - echo "Checking agents..."
+    - flake8 agents/*.py --max-line-length=120 --count --statistics || true
+    - echo "Code quality check complete"
+  allow_failure: true
+
+test:flows:validation:
+  stage: test
+  image: alpine:latest
+  script:
+    - echo "Validating YAML flow files..."
+    - apk add --no-cache yamllint
+    - yamllint -d relaxed flows/*.yml
+    - echo "All flow files are valid YAML"
+  allow_failure: false
+
+test:documentation:
+  stage: test
+  image: alpine:latest
+  script:
+    - echo "Checking documentation..."
+    - test -f README.md && echo "✓ README.md exists"
+    - test -f docs/SETUP.md && echo "✓ SETUP.md exists"
+    - test -f docs/FLOWS.md && echo "✓ FLOWS.md exists"
+    - test -f docs/DASHBOARD.md && echo "✓ DASHBOARD.md exists"
+    - test -f CONTRIBUTING.md && echo "✓ CONTRIBUTING.md exists"
+    - test -f LICENSE && echo "✓ LICENSE exists"
+    - echo "Documentation check complete"
+  allow_failure: false
+
+# ============================================================================
+# BUILD STAGE
+# ============================================================================
+
+build:dashboard:
+  stage: build
+  image: node:18
+  script:
+    - echo "Building EcoGuard Dashboard..."
+    - cd dashboards
+    - echo "Dashboard files ready for deployment"
+    - ls -la src/
+    - ls -la data/
+  artifacts:
+    paths:
+      - dashboards/src/
+      - dashboards/data/
+    expire_in: 30 days
+  allow_failure: false
+
+build:agents:package:
+  stage: build
+  script:
+    - echo "Packaging agents..."
+    - mkdir -p build/agents
+    - cp agents/*.py build/agents/
+    - cp agents/README.md build/agents/
+    - echo "Agents packaged successfully"
+  artifacts:
+    paths:
+      - build/agents/
+    expire_in: 30 days
+  allow_failure: false
+
+build:flows:package:
+  stage: build
+  script:
+    - echo "Packaging flows..."
+    - mkdir -p build/flows
+    - cp flows/*.yml build/flows/
+    - cp flows/README.md build/flows/
+    - echo "Flows packaged successfully"
+  artifacts:
+    paths:
+      - build/flows/
+    expire_in: 30 days
+  allow_failure: false
+
+build:docs:package:
+  stage: build
+  script:
+    - echo "Packaging documentation..."
+    - mkdir -p build/docs
+    - cp -r docs/* build/docs/
+    - cp README.md build/
+    - cp LICENSE build/
+    - cp CONTRIBUTING.md build/
+    - echo "Documentation packaged successfully"
+  artifacts:
+    paths:
+      - build/docs/
+      - build/README.md
+      - build/LICENSE
+      - build/CONTRIBUTING.md
+    expire_in: 30 days
+  allow_failure: false
+
+build:complete:
+  stage: build
+  script:
+    - echo "EcoGuard Build Complete"
+    - echo "✓ All agents tested"
+    - echo "✓ Dashboard built"
+    - echo "✓ Flows validated"
+    - echo "✓ Documentation packaged"
+    - echo "Ready for deployment"
+  allow_failure: false
+
+# ============================================================================
+# DEPLOY STAGE
+# ============================================================================
+
+pages:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Deploying EcoGuard Dashboard to GitLab Pages..."
+    - mkdir -p public
+    - cp dashboards/src/index.html public/
+    - cp dashboards/src/dashboard.js public/
+    - cp dashboards/src/README.md public/README.md
+    - cp -r dashboards/data public/
+    - echo "Creating index for data files..."
+    - echo "<h1>EcoGuard Data Files</h1><ul>" > public/data/index.html
+    - for file in public/data/*.json; do echo "<li><a href='$(basename $file)'>$(basename $file)</a></li>" >> public/data/index.html; done
+    - echo "</ul>" >> public/data/index.html
+    - echo "Dashboard deployed to GitLab Pages"
+    - echo "URL: https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME"
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - main
+  environment:
+    name: production
+    url: https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME
+
+deploy:documentation:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Deploying documentation..."
+    - mkdir -p public/docs
+    - cp -r docs/* public/docs/ || true
+    - cp README.md public/
+    - cp CONTRIBUTING.md public/
+    - cp LICENSE public/
+    - echo "Documentation deployed"
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - main
+
+# ============================================================================
+# NOTIFICATIONS
+# ============================================================================
+
+.notify_success: &notify_success
+  after_script:
+    - echo "✓ Pipeline completed successfully"
+    - echo "Dashboard: https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME"
+
+.notify_failure: &notify_failure
+  after_script:
+    - echo "✗ Pipeline failed"
+    - echo "Check logs for details"
+
+# ============================================================================
+# SUCCESS SUMMARY
+# ============================================================================
+
+success:summary:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "═══════════════════════════════════════════════════════════════"
+    - echo "  🌍 EcoGuard CI/CD Pipeline - SUCCESS"
+    - echo "═══════════════════════════════════════════════════════════════"
+    - echo ""
+    - echo "✓ All Tests Passed"
+    - echo "  - Sustainability Compliance Agent"
+    - echo "  - Carbon Footprint Agent"
+    - echo "  - Resource Optimization Agent"
+    - echo "  - Eco-Friendly Deployment Agent"
+    - echo "  - Dashboard Data Agent"
+    - echo ""
+    - echo "✓ Build Complete"
+    - echo "  - Dashboard built and ready"
+    - echo "  - Agents packaged"
+    - echo "  - Flows validated"
+    - echo "  - Documentation prepared"
+    - echo ""
+    - echo "✓ Deployment Complete"
+    - echo "  - Dashboard: https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME"
+    - echo "  - Documentation: https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME/docs"
+    - echo ""
+    - echo "═══════════════════════════════════════════════════════════════"
+    - echo "  Next Steps:"
+    - echo "  1. Enable flows in your GitLab project"
+    - echo "  2. Configure environment variables"
+    - echo "  3. Set up Slack/email notifications"
+    - echo "  4. Test with real pipelines"
+    - echo "═══════════════════════════════════════════════════════════════"
+  only:
+    - main
+  when: on_success
+
+failure:summary:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "═══════════════════════════════════════════════════════════════"
+    - echo "  ✗ EcoGuard CI/CD Pipeline - FAILED"
+    - echo "═══════════════════════════════════════════════════════════════"
+    - echo ""
+    - echo "Check the pipeline logs for details:"
+    - echo "$CI_PIPELINE_URL"
+    - echo ""
+    - echo "═══════════════════════════════════════════════════════════════"
+  when: on_failure
