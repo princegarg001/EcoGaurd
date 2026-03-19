@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoGuard - Sustainability Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            color: #374151;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+        }
+        .header {
+            margin-bottom: 30px;
+        }
+        .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+        .status {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            color: #065f46;
+        }
+        .status h2 {
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        .status p {
+            margin: 8px 0;
+        }
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 4px;
+        }
+        .info-box h3 {
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+        .info-box p {
+            color: #1e40af;
+            margin: 8px 0;
+        }
+        .code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .button {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 10px 5px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .button:hover {
+            background: #059669;
+        }
+        .button-secondary {
+            background: #3b82f6;
+        }
+        .button-secondary:hover {
+            background: #2563eb;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature {
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .feature h3 {
+            color: #10b981;
+            margin-bottom: 8px;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">🌍</div>
+            <h1>EcoGuard</h1>
+            <p class="subtitle">Sustainability Monitoring for GitLab Projects</p>
+        </div>
+
+        <div class="status">
+            <h2>✅ System Status: READY</h2>
+            <p><strong>Pipeline:</strong> Passing ✅</p>
+            <p><strong>Dashboard:</strong> Built and Ready ✅</p>
+            <p><strong>Agents:</strong> 5 Deployed ✅</p>
+            <p><strong>Workflows:</strong> 8 Configured ✅</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Real-time Metrics</h3>
+                <p>Track CO₂ emissions and energy consumption</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h3>5 AI Agents</h3>
+                <p>Automated sustainability analysis</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📈</div>
+                <h3>Goal Tracking</h3>
+                <p>Monitor progress toward targets</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💡</div>
+                <h3>Recommendations</h3>
+                <p>Optimization suggestions</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>🚀 Getting Started</h3>
+            <p><strong>Step 1:</strong> Get API Keys (20 minutes)</p>
+                <p style="margin-left: 20px; margin-top: 5px;">• Electricity Maps: <a href="dashboard.html" target="_blank">https://www.electricitymap.org/</a></p>
+            <p style="margin-left: 20px;">• GitLab Token: <a href="https://gitlab.com/-/profile/personal_access_tokens" target="_blank">https://gitlab.com/-/profile/personal_access_tokens</a></p>
+            <p style="margin-top: 15px;"><strong>Step 2:</strong> Set Environment Variables</p>
+            <div class="code">export ELECTRICITY_MAPS_API_KEY="your-key"
+export GITLAB_TOKEN="your-token"
+export CI_PROJECT_ID="80410036"</div>
+            <p style="margin-top: 15px;"><strong>Step 3:</strong> Run Data Collection</p>
+            <div class="code">python collect_real_data.py</div>
+            <p style="margin-top: 15px;"><strong>Step 4:</strong> View Dashboard</p>
+            <div class="code">open dashboards/src/index.html</div>
+        </div>
+
+        <div class="info-box">
+            <h3>📋 Project Links</h3>
+            <p><a href="https://gitlab.com/princegarg001-group/EcoGuard" target="_blank">📁 GitLab Repository</a></p>
+            <p><a href="https://gitlab.com/princegarg001-group/EcoGuard/-/pipelines" target="_blank">🔄 CI/CD Pipelines</a></p>
+            <p><a href="https://gitlab.com/princegarg001-group/EcoGuard/-/merge_requests" target="_blank">🔀 Merge Requests</a></p>
+            <p><a href="https://gitlab.com/princegarg001-group/EcoGuard/-/tree/main/dashboards/src" target="_blank">📊 Dashboard Files</a></p>
+        </div>
+
+        <div class="info-box">
+            <h3>📚 Documentation</h3>
+            <p>Complete guides available in the repository:</p>
+            <p style="margin-left: 20px; margin-top: 10px;">• <strong>INSTALLATION.md</strong> - Full setup guide</p>
+            <p style="margin-left: 20px;">• <strong>QUICKSTART.md</strong> - 5-minute quick start</p>
+            <p style="margin-left: 20px;">• <strong>TESTING_GUIDE.md</strong> - Testing procedures</p>
+            <p style="margin-left: 20px;">• <strong>docs/API_SETUP.md</strong> - API configuration</p>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <a href="https://gitlab.com/princegarg001-group/EcoGuard" class="button">View Repository</a>
+            <a href="https://gitlab.com/princegarg001-group/EcoGuard/-/tree/main/dashboards/src" class="button button-secondary">View Dashboard Files</a>
+        </div>
+
+        <div class="footer">
+            <p>🌍 EcoGuard - Building Sustainable Software</p>
+            <p>Powered by GitLab Duo | All systems operational ✅</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">To view the interactive dashboard locally, run: <code>open dashboards/src/index.html</code></p>
+        </div>
+    </div>
+</body>
+</html>

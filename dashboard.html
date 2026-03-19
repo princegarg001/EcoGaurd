@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoGuard - Sustainability Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>EcoGuard Dashboard</h1>
+                <p>Real-time sustainability metrics and insights</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <div class="stat-label">Total Emissions</div>
+                    <div class="stat-value" id="totalEmissions">0 kg</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Energy</div>
+                    <div class="stat-value" id="totalEnergy">0 kWh</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Build Count</div>
+                    <div class="stat-value" id="buildCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">SCI Score</div>
+                    <div class="stat-value" id="sciScore">0</div>
+                </div>
+            </div>
+        </div>
+        <!-- Dashboard content goes here -->
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
