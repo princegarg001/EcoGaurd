@@ -1,0 +1,46 @@
+[
+  {
+    "goal_id": "goal-co2-reduction",
+    "name": "Reduce CO₂ emissions by 20%",
+    "target_value": 100,
+    "target_unit": "kg_co2",
+    "baseline_value": 125,
+    "deadline": "2024-12-31",
+    "current_value": 110,
+    "progress_percent": 88,
+    "status": "on_track"
+  },
+  {
+    "goal_id": "goal-energy-reduction",
+    "name": "Reduce energy consumption by 15%",
+    "target_value": 300,
+    "target_unit": "kwh",
+    "baseline_value": 350,
+    "deadline": "2024-12-31",
+    "current_value": 320,
+    "progress_percent": 91,
+    "status": "on_track"
+  },
+  {
+    "goal_id": "goal-compliance-issues",
+    "name": "Resolve 80% of compliance issues",
+    "target_value": 80,
+    "target_unit": "percent",
+    "baseline_value": 0,
+    "deadline": "2024-12-31",
+    "current_value": 75,
+    "progress_percent": 94,
+    "status": "on_track"
+  },
+  {
+    "goal_id": "goal-sci-score",
+    "name": "Reduce SCI score to 0.5 kg CO₂/build",
+    "target_value": 0.5,
+    "target_unit": "kg_co2",
+    "baseline_value": 0.8,
+    "deadline": "2024-12-31",
+    "current_value": 0.55,
+    "progress_percent": 91,
+    "status": "on_track"
+  }
+]

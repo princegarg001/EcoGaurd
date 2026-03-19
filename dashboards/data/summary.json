@@ -1,0 +1,66 @@
+{
+  "timestamp": "2024-03-19T13:54:00Z",
+  "latest_daily": {
+    "date": "2024-03-19",
+    "total_energy_kwh": 45.2,
+    "total_emissions_kg_co2": 18.5,
+    "builds_count": 12,
+    "deployments_count": 2,
+    "compliance_issues_opened": 3,
+    "compliance_issues_resolved": 2,
+    "avg_carbon_intensity_g_per_kwh": 250,
+    "optimization_recommendations_count": 5,
+    "failed_jobs_count": 1,
+    "wasted_energy_kwh": 2.5
+  },
+  "latest_weekly": {
+    "week_start": "2024-03-18",
+    "week_end": "2024-03-24",
+    "total_energy_kwh": 298.5,
+    "total_emissions_kg_co2": 122.4,
+    "builds_count": 88,
+    "deployments_count": 13,
+    "avg_emissions_per_build_kg_co2": 1.39,
+    "avg_emissions_per_deployment_kg_co2": 9.42,
+    "energy_reduction_pct": 4.5
+  },
+  "latest_monthly": {
+    "month": "2024-03",
+    "total_energy_kwh": 1100.0,
+    "total_emissions_kg_co2": 450.8,
+    "builds_count": 325,
+    "deployments_count": 50,
+    "avg_emissions_per_build_kg_co2": 1.39,
+    "sci_score": 1.39,
+    "energy_reduction_pct": 12.0
+  },
+  "total_days_tracked": 38,
+  "total_weeks_tracked": 5,
+  "total_months_tracked": 2,
+  "goals": [
+    {
+      "goal_id": "goal-co2-reduction",
+      "name": "Reduce CO₂ emissions by 20%",
+      "progress_percent": 88,
+      "status": "on_track"
+    },
+    {
+      "goal_id": "goal-energy-reduction",
+      "name": "Reduce energy consumption by 15%",
+      "progress_percent": 91,
+      "status": "on_track"
+    },
+    {
+      "goal_id": "goal-compliance-issues",
+      "name": "Resolve 80% of compliance issues",
+      "progress_percent": 94,
+      "status": "on_track"
+    },
+    {
+      "goal_id": "goal-sci-score",
+      "name": "Reduce SCI score to 0.5 kg CO₂/build",
+      "progress_percent": 91,
+      "status": "on_track"
+    }
+  ]
+}

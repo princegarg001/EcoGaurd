@@ -1,0 +1,13 @@
+{
+  "date": "2024-03-19",
+  "total_energy_kwh": 45.2,
+  "total_emissions_kg_co2": 18.5,
+  "builds_count": 12,
+  "deployments_count": 2,
+  "compliance_issues_opened": 3,
+  "compliance_issues_resolved": 2,
+  "avg_carbon_intensity_g_per_kwh": 250,
+  "optimization_recommendations_count": 5,
+  "failed_jobs_count": 1,
+  "wasted_energy_kwh": 2.5
+}
