@@ -18,7 +18,7 @@ api:real-data:
   stage: build
   image: python:3.11
   script:
-    - pip install flask
+    - pip install flask requests
     - echo "Collecting real data..."
     - python collect_real_data.py
     - echo "Starting API server..."
