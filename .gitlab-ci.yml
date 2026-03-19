@@ -1,22 +1,21 @@
+stages:
+
 # EcoGuard CI/CD Pipeline Configuration
 # Builds, tests, and deploys all agents and dashboard
 
 stages:
+  - build
+  - test
+  - deploy
 
 image: python:3.11
-
-
-  - api
-  - test
-  - build
-  - deploy
 
 # ============================================================================
 # API STAGE (Real Data Collection & API Server)
 # ============================================================================
 
 api:real-data:
-  stage: api
+  stage: build
   image: python:3.11
   script:
     - pip install flask
