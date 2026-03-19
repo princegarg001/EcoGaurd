@@ -151,11 +151,16 @@ pages:
   image: alpine:latest
   script:
     - mkdir -p public
-    - cp dashboards/src/index.html public/ 2>/dev/null || echo "index.html not found"
-    - cp dashboards/src/dashboard.js public/ 2>/dev/null || echo "dashboard.js not found"
-    - cp dashboards/src/README.md public/README.md 2>/dev/null || echo "README.md not found"
-    - cp -r dashboards/data public/ 2>/dev/null || echo "data directory not found"
+    - mkdir -p public/data
+    - echo "Copying dashboard files..."
+    - cp dashboards/src/index.html public/ 2>/dev/null && echo "Copied index.html" || echo "index.html not found"
+    - cp dashboards/src/dashboard.js public/ 2>/dev/null && echo "Copied dashboard.js" || echo "dashboard.js not found"
+    - cp dashboards/src/README.md public/README.md 2>/dev/null && echo "Copied README.md" || echo "README.md not found"
+    - cp dashboards/data/*.json public/data/ 2>/dev/null && echo "Copied data files" || echo "data files not found"
+    - echo "Creating index page..."
+    - echo "<html><head><title>EcoGuard Dashboard</title></head><body><h1>EcoGuard Dashboard</h1><p><a href='index.html'>Open Dashboard</a></p></body></html>" > public/index.html || true
     - echo "Dashboard deployed to GitLab Pages"
+    - ls -la public/
   artifacts:
     paths:
       - public
@@ -172,10 +177,10 @@ deploy:documentation:
   image: alpine:latest
   script:
     - mkdir -p public/docs
-    - cp -r docs/* public/docs/ 2>/dev/null || true
-    - cp README.md public/ 2>/dev/null || true
-    - cp CONTRIBUTING.md public/ 2>/dev/null || true
-    - cp LICENSE public/ 2>/dev/null || true
+    - cp -r docs/* public/docs/ 2>/dev/null || echo "docs not found"
+    - cp README.md public/ 2>/dev/null || echo "README.md not found"
+    - cp CONTRIBUTING.md public/ 2>/dev/null || echo "CONTRIBUTING.md not found"
+    - cp LICENSE public/ 2>/dev/null || echo "LICENSE not found"
     - echo "Documentation deployed"
   artifacts:
     paths:
