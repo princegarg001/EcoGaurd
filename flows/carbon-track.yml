@@ -1,0 +1,123 @@
+# EcoGuard Flow: Carbon Track (On Pipeline Completion)
+# Trigger: Pipeline succeeds or fails
+# Purpose: Calculate and report pipeline emissions
+
+name: Carbon Track
+description: Calculate pipeline energy consumption and CO₂ emissions
+
+trigger:
+  type: pipeline
+  events:
+    - success
+    - failure
+  filters:
+    - branch: main
+    - branch: develop
+
+steps:
+  - name: Collect Pipeline Metrics
+    agent: carbon-footprint
+    inputs:
+      - pipeline_id
+      - job_metrics
+      - runner_region
+    outputs:
+      - energy_kwh
+      - emissions_kg_co2
+      - breakdown
+      - recommendations
+    timeout: 600
+    retry:
+      max_attempts: 3
+      backoff: exponential
+
+  - name: Determine Communication Level
+    type: condition
+    condition: "emissions_kg_co2 > 0.01"  # Only report significant emissions
+    then:
+      - name: Post Pipeline Comment
+        type: comment
+        inputs:
+          - energy_kwh
+          - emissions_kg_co2
+          - breakdown
+          - recommendations
+        target: pipeline
+        template: |
+          ## 🌍 EcoGuard Carbon Footprint Report
+          
+          ### Energy & Emissions
+          - **Energy Used:** {{ energy_kwh }} kWh
+          - **CO₂ Emissions:** {{ emissions_kg_co2 }} kg CO₂e
+          - **Carbon Intensity:** {{ breakdown.carbon_intensity }} gCO₂/kWh
+          
+          ### Breakdown
+          {{ breakdown }}
+          
+          ### Recommendations
+          {{ recommendations }}
+      
+      - name: Create High-Emissions Issue
+        type: issue_creation
+        condition: "emissions_kg_co2 > 0.05"  # High emissions threshold
+        title: "🔴 High Pipeline Emissions: {{ emissions_kg_co2 }} kg CO₂e"
+        description: |
+          ## High Carbon Footprint Detected
+          
+          This pipeline's emissions are above the recommended threshold.
+          
+          **Metrics:**
+          - Energy: {{ energy_kwh }} kWh
+          - Emissions: {{ emissions_kg_co2 }} kg CO₂e
+          
+          **Recommendations:**
+          {{ recommendations }}
+          
+          **Next Steps:**
+          1. Review the recommendations above
+          2. Implement optimizations
+          3. Monitor metrics to verify improvements
+        labels:
+          - sustainability
+          - high-emissions
+          - optimization
+    else:
+      - name: Post Efficient Pipeline Comment
+        type: comment
+        target: pipeline
+        template: |
+          ✅ **EcoGuard Carbon Check**: Pipeline is running efficiently!
+          
+          Emissions: {{ emissions_kg_co2 }} kg CO₂e (below threshold)
+
+  - name: Update Dashboard Data
+    agent: dashboard-data
+    inputs:
+      - energy_kwh
+      - emissions_kg_co2
+      - timestamp
+      - pipeline_id
+    outputs:
+      - metrics_updated
+    timeout: 300
+
+  - name: Log Metrics
+    type: metrics_log
+    inputs:
+      - pipeline_id
+      - energy_kwh
+      - emissions_kg_co2
+      - timestamp
+    output_file: dashboards/data/pipeline-emissions.json
+
+notifications:
+  on_success:
+    - type: comment
+      target: pipeline
+      message: "✅ Carbon tracking completed"
+  on_failure:
+    - type: comment
+      target: pipeline
+      message: "⚠️ Carbon tracking encountered an error"
+
+schedule: null  # Runs on every pipeline completion
