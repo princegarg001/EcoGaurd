@@ -1,0 +1,47 @@
+# EcoGuard Requirements
+
+## Python Dependencies
+
+```
+python>=3.9
+pytest>=7.0
+pytest-cov>=4.0
+requests>=2.28
+axios>=1.6
+```
+
+## Development Dependencies
+
+```
+pylint>=2.15
+flake8>=5.0
+black>=22.0
+isort>=5.10
+```
+
+## System Requirements
+
+- Python 3.9+
+- Node.js 16+ (for dashboard)
+- Git 2.30+
+- 2GB RAM minimum
+- 500MB disk space
+
+## Optional Dependencies
+
+- Prometheus (for metrics collection)
+- Docker (for containerization)
+- PostgreSQL (for data persistence)
+
+## API Requirements
+
+- GitLab 15.0+ with GitLab Duo enabled
+- Electricity Maps API key (free tier available)
+- Google Cloud credentials (optional)
+
+## Browser Support
+
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
+- Mobile browsers (iOS Safari, Chrome Mobile)
