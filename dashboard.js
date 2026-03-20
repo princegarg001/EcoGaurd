@@ -16,11 +16,11 @@ async function loadDashboardData() {
     try {
         // Load data from API endpoints
         const [dailyData, weeklyData, monthlyData, goalsData, summaryData] = await Promise.all([
-            fetch('http://localhost:5000/api/daily-metrics').then(r => r.json()).catch(() => []),
-            fetch('http://localhost:5000/api/weekly-metrics').then(r => r.json()).catch(() => []),
-            fetch('http://localhost:5000/api/monthly-metrics').then(r => r.json()).catch(() => []),
-            fetch('http://localhost:5000/api/sustainability-goals').then(r => r.json()).catch(() => []),
-            fetch('http://localhost:5000/api/summary').then(r => r.json()).catch(() => ({}))
+            fetch('api/daily-metrics.json').then(r => r.json()).catch(() => []),
+            fetch('api/weekly-metrics.json').then(r => r.json()).catch(() => []),
+            fetch('api/monthly-metrics.json').then(r => r.json()).catch(() => []),
+            fetch('api/sustainability-goals.json').then(r => r.json()).catch(() => []),
+            fetch('api/summary.json').then(r => r.json()).catch(() => ({}))
         ]);
 
         // Show data source indicator
