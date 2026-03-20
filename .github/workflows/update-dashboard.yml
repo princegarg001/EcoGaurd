@@ -51,3 +51,14 @@ jobs:
           file_pattern: 'dashboards/data/*.json'
           commit_user_name: "github-actions[bot]"
           commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: 🚀 Build static API for GitHub Pages
+        run: |
+          mkdir -p ./public/api
+          cp -r dashboards/data/* ./public/api/
+
+      - name: 🌐 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public

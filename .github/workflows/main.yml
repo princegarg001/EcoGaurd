@@ -52,8 +52,8 @@ jobs:
       - name: Build dashboard
         run: |
           echo "Building EcoGuard Dashboard..."
-          test -d dashboards/src && echo "Dashboard source exists" || echo "Dashboard source missing"
-          test -d dashboards/data && echo "Dashboard data exists" || echo "Dashboard data missing"
+          mkdir -p ./public/api
+          cp -r dashboards/data/* ./public/api/
           echo "Dashboard files ready for deployment"
 
   deploy-pages:
