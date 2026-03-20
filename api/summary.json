@@ -1,0 +1,74 @@
+{
+  "timestamp": "2026-03-20T06:55:52.877576",
+  "data_source": "real",
+  "project_id": "80410036",
+  "latest_daily": {
+    "date": "2026-03-20",
+    "total_energy_kwh": 0.019,
+    "total_emissions_kg_co2": 0.0096,
+    "builds_count": 36,
+    "deployments_count": 6,
+    "compliance_issues_opened": 2,
+    "compliance_issues_resolved": 2,
+    "avg_carbon_intensity_g_per_kwh": 503,
+    "optimization_recommendations_count": 25,
+    "failed_jobs_count": 1,
+    "wasted_energy_kwh": 0.0014
+  },
+  "latest_weekly": {
+    "week_start": "2026-03-14",
+    "week_end": "2026-03-20",
+    "total_energy_kwh": 313.219,
+    "total_emissions_kg_co2": 127.8096,
+    "builds_count": 129,
+    "deployments_count": 18,
+    "compliance_issues_opened": -1,
+    "compliance_issues_resolved": 14,
+    "avg_emissions_per_build_kg_co2": 0.9908,
+    "avg_emissions_per_deployment_kg_co2": 7.1005,
+    "optimization_recommendations_count": 55,
+    "failed_jobs_count": 7,
+    "wasted_energy_kwh": 15.0014,
+    "energy_reduction_pct": 0
+  },
+  "latest_monthly": null,
+  "total_days_tracked": 7,
+  "total_weeks_tracked": 2,
+  "total_months_tracked": 0,
+  "goals": [
+    {
+      "goal_id": "goal-1",
+      "name": "Reduce CO\u2082 by 20%",
+      "target_value": 100,
+      "target_unit": "kg_co2",
+      "baseline_value": 125,
+      "deadline": "2026-12-31",
+      "current_value": 0.96,
+      "progress_percent": 80.8,
+      "status": "on_track"
+    },
+    {
+      "goal_id": "goal-2",
+      "name": "Reduce energy by 15%",
+      "target_value": 300,
+      "target_unit": "kwh",
+      "baseline_value": 350,
+      "deadline": "2026-12-31",
+      "current_value": 19.0,
+      "progress_percent": 96.2,
+      "status": "on_track"
+    }
+  ],
+  "carbon_intensity_source": "Electricity Maps API",
+  "gitlab_data_source": "GitLab API",
+  "latest_analysis": {
+    "zone": "IN",
+    "carbon_intensity_g_per_kwh": 503,
+    "total_energy_kwh": 0.019,
+    "total_emissions_kg_co2": 0.0096,
+    "jobs_analyzed": 36,
+    "recommendations": [
+      "\u274c 1 job(s) failed, wasting 0.00 kWh. Fix failures to reduce wasted energy."
+    ]
+  }
+}
