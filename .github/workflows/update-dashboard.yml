@@ -54,6 +54,7 @@ jobs:
             echo "No new data to commit. Everything is up to date!"
           else
             git commit -m "📈 chore: Update daily EcoGuard metrics [skip ci]"
-            git push
+            git pull --rebase origin HEAD || true
+            git push origin HEAD
             echo "Successfully updated metrics and pushed to repository!"
           fi
