@@ -1,34 +1,34 @@
 {
-  "timestamp": "2026-03-20T06:03:45.955628",
-  "data_source": "fallback",
+  "timestamp": "2026-03-20T06:35:01.642929",
+  "data_source": "real",
   "project_id": "80410036",
   "latest_daily": {
     "date": "2026-03-20",
-    "total_energy_kwh": 0.0333,
-    "total_emissions_kg_co2": 0.0233,
-    "builds_count": 5,
-    "deployments_count": 1,
+    "total_energy_kwh": 0.019,
+    "total_emissions_kg_co2": 0.0096,
+    "builds_count": 36,
+    "deployments_count": 6,
     "compliance_issues_opened": 2,
     "compliance_issues_resolved": 2,
-    "avg_carbon_intensity_g_per_kwh": 700,
-    "optimization_recommendations_count": 6,
-    "failed_jobs_count": 0,
-    "wasted_energy_kwh": 0
+    "avg_carbon_intensity_g_per_kwh": 503,
+    "optimization_recommendations_count": 25,
+    "failed_jobs_count": 1,
+    "wasted_energy_kwh": 0.0014
   },
   "latest_weekly": {
     "week_start": "2026-03-14",
     "week_end": "2026-03-20",
-    "total_energy_kwh": 313.2333,
-    "total_emissions_kg_co2": 127.8233,
-    "builds_count": 98,
-    "deployments_count": 13,
+    "total_energy_kwh": 313.219,
+    "total_emissions_kg_co2": 127.8096,
+    "builds_count": 129,
+    "deployments_count": 18,
     "compliance_issues_opened": -1,
     "compliance_issues_resolved": 14,
-    "avg_emissions_per_build_kg_co2": 1.3043,
-    "avg_emissions_per_deployment_kg_co2": 9.8326,
-    "optimization_recommendations_count": 36,
-    "failed_jobs_count": 6,
-    "wasted_energy_kwh": 15.0,
+    "avg_emissions_per_build_kg_co2": 0.9908,
+    "avg_emissions_per_deployment_kg_co2": 7.1005,
+    "optimization_recommendations_count": 55,
+    "failed_jobs_count": 7,
+    "wasted_energy_kwh": 15.0014,
     "energy_reduction_pct": 0
   },
   "latest_monthly": null,
@@ -43,8 +43,8 @@
       "target_unit": "kg_co2",
       "baseline_value": 125,
       "deadline": "2026-12-31",
-      "current_value": 2.33,
-      "progress_percent": 53.4,
+      "current_value": 0.96,
+      "progress_percent": 80.8,
       "status": "on_track"
     },
     {
@@ -54,21 +54,21 @@
       "target_unit": "kwh",
       "baseline_value": 350,
       "deadline": "2026-12-31",
-      "current_value": 33.3,
-      "progress_percent": 93.3,
+      "current_value": 19.0,
+      "progress_percent": 96.2,
       "status": "on_track"
     }
   ],
-  "carbon_intensity_source": "defaults",
-  "gitlab_data_source": "sample data",
+  "carbon_intensity_source": "Electricity Maps API",
+  "gitlab_data_source": "GitLab API",
   "latest_analysis": {
     "zone": "IN",
-    "carbon_intensity_g_per_kwh": 700,
-    "total_energy_kwh": 0.0333,
-    "total_emissions_kg_co2": 0.0233,
-    "jobs_analyzed": 5,
+    "carbon_intensity_g_per_kwh": 503,
+    "total_energy_kwh": 0.019,
+    "total_emissions_kg_co2": 0.0096,
+    "jobs_analyzed": 36,
     "recommendations": [
-      "\u2705 Pipeline is running efficiently! Keep up the good work."
+      "\u274c 1 job(s) failed, wasting 0.00 kWh. Fix failures to reduce wasted energy."
     ]
   }
 }
