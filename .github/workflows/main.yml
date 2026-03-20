@@ -12,9 +12,9 @@ jobs:
   test-agents:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Install dependencies
@@ -32,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: test-agents
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Install dependencies
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: collect-real-data
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build dashboard
         run: |
           echo "Building EcoGuard Dashboard..."
@@ -60,9 +60,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-dashboard
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
