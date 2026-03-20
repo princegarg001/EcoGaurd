@@ -1,0 +1,59 @@
+name: Update EcoGuard Dashboard Daily
+
+# This workflow will automatically run every 24 hours and can also be triggered manually
+on:
+  schedule:
+    # Runs at 00:00 (Midnight) UTC every single day
+    - cron: '0 0 * * *'
+  
+  # Allows you to trigger this workflow manually from the Actions tab in GitHub
+  workflow_dispatch:
+
+jobs:
+  update-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to commit and push changes back to the repository
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests flask flask-cors python-dotenv
+
+      - name: 🌍 Run EcoGuard Data Collector
+        # These secrets must be added to your GitHub repository:
+        # Settings > Secrets and variables > Actions > New repository secret
+        env:
+          ELECTRICITY_MAPS_API_KEY: ${{ secrets.ELECTRICITY_MAPS_API_KEY }}
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          CI_PROJECT_ID: '80410036'
+          RUNNER_REGION: 'IN'
+        run: |
+          python collect_real_data.py
+
+      - name: 💾 Commit and Push Updated Data
+        run: |
+          # Configure Git as GitHub Actions Bot
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the JSON data files
+          git add dashboards/data/*.json
+          
+          # Check if there are actually any changes to commit before trying to commit
+          if git diff --staged --quiet; then
+            echo "No new data to commit. Everything is up to date!"
+          else
+            git commit -m "📈 chore: Update daily EcoGuard metrics [skip ci]"
+            git push
+            echo "Successfully updated metrics and pushed to repository!"
+          fi

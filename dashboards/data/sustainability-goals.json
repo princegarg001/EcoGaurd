@@ -1,0 +1,24 @@
+[
+  {
+    "goal_id": "goal-1",
+    "name": "Reduce CO\u2082 by 20%",
+    "target_value": 100,
+    "target_unit": "kg_co2",
+    "baseline_value": 125,
+    "deadline": "2026-12-31",
+    "current_value": 1.01,
+    "progress_percent": 79.8,
+    "status": "on_track"
+  },
+  {
+    "goal_id": "goal-2",
+    "name": "Reduce energy by 15%",
+    "target_value": 300,
+    "target_unit": "kwh",
+    "baseline_value": 350,
+    "deadline": "2026-12-31",
+    "current_value": 19.0,
+    "progress_percent": 96.2,
+    "status": "on_track"
+  }
+]

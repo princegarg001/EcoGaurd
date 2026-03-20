@@ -74,6 +74,7 @@ class CarbonIntensityProvider:
         'EU-GB': {'current': 250, 'avg': 280, 'renewable_heavy': True},
         'EU-FR': {'current': 50, 'avg': 60, 'renewable_heavy': True},
         'EU-NO': {'current': 20, 'avg': 25, 'renewable_heavy': True},
+        'IN': {'current': 700, 'avg': 720, 'renewable_heavy': False},
         'APAC-SG': {'current': 450, 'avg': 480, 'renewable_heavy': False},
         'APAC-AU': {'current': 600, 'avg': 620, 'renewable_heavy': False},
     }
