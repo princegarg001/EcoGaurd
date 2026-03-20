@@ -44,20 +44,10 @@ jobs:
           python collect_real_data.py
 
       - name: 💾 Commit and Push Updated Data
-        run: |
-          # Configure Git as GitHub Actions Bot
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
-          # Stage the JSON data files
-          git add dashboards/data/*.json
-          
-          # Check if there are actually any changes to commit before trying to commit
-          if git diff --staged --quiet; then
-            echo "No new data to commit. Everything is up to date!"
-          else
-            git commit -m "📈 chore: Update daily EcoGuard metrics [skip ci]"
-            git pull --rebase origin HEAD || true
-            git push origin HEAD
-            echo "Successfully updated metrics and pushed to repository!"
-          fi
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "📈 chore: Update daily EcoGuard metrics [skip ci]"
+          branch: main
+          file_pattern: 'dashboards/data/*.json'
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"
