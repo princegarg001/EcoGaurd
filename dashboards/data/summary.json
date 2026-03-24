@@ -1,39 +1,39 @@
 {
-  "timestamp": "2026-03-23T01:55:31.549184",
+  "timestamp": "2026-03-24T01:47:19.538412",
   "data_source": "real",
   "project_id": "80410036",
   "latest_daily": {
-    "date": "2026-03-23",
+    "date": "2026-03-24",
     "total_energy_kwh": 0.019,
-    "total_emissions_kg_co2": 0.0137,
+    "total_emissions_kg_co2": 0.0136,
     "builds_count": 36,
     "deployments_count": 6,
     "compliance_issues_opened": 2,
     "compliance_issues_resolved": 2,
-    "avg_carbon_intensity_g_per_kwh": 721,
+    "avg_carbon_intensity_g_per_kwh": 712,
     "optimization_recommendations_count": 25,
     "failed_jobs_count": 1,
-    "wasted_energy_kwh": 0.0021
+    "wasted_energy_kwh": 0.002
   },
   "latest_weekly": {
-    "week_start": "2026-03-17",
-    "week_end": "2026-03-23",
-    "total_energy_kwh": 147.676,
-    "total_emissions_kg_co2": 60.3505,
-    "builds_count": 186,
-    "deployments_count": 30,
-    "compliance_issues_opened": 11,
+    "week_start": "2026-03-18",
+    "week_end": "2026-03-24",
+    "total_energy_kwh": 96.495,
+    "total_emissions_kg_co2": 39.4641,
+    "builds_count": 207,
+    "deployments_count": 34,
+    "compliance_issues_opened": 13,
     "compliance_issues_resolved": 14,
-    "avg_emissions_per_build_kg_co2": 0.3245,
-    "avg_emissions_per_deployment_kg_co2": 2.0117,
-    "optimization_recommendations_count": 115,
+    "avg_emissions_per_build_kg_co2": 0.1906,
+    "avg_emissions_per_deployment_kg_co2": 1.1607,
+    "optimization_recommendations_count": 135,
     "failed_jobs_count": 7,
-    "wasted_energy_kwh": 7.5076,
+    "wasted_energy_kwh": 5.0096,
     "energy_reduction_pct": 0
   },
   "latest_monthly": null,
-  "total_days_tracked": 10,
-  "total_weeks_tracked": 4,
+  "total_days_tracked": 11,
+  "total_weeks_tracked": 5,
   "total_months_tracked": 0,
   "goals": [
     {
@@ -43,8 +43,8 @@
       "target_unit": "kg_co2",
       "baseline_value": 125,
       "deadline": "2026-12-31",
-      "current_value": 1.37,
-      "progress_percent": 72.6,
+      "current_value": 1.36,
+      "progress_percent": 72.8,
       "status": "on_track"
     },
     {
@@ -63,9 +63,9 @@
   "gitlab_data_source": "GitLab API",
   "latest_analysis": {
     "zone": "IN",
-    "carbon_intensity_g_per_kwh": 721,
+    "carbon_intensity_g_per_kwh": 712,
     "total_energy_kwh": 0.019,
-    "total_emissions_kg_co2": 0.0137,
+    "total_emissions_kg_co2": 0.0136,
     "jobs_analyzed": 36,
     "recommendations": [
       "\u274c 1 job(s) failed, wasting 0.00 kWh. Fix failures to reduce wasted energy."
