@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-03-28T01:51:29.016947",
+  "timestamp": "2026-03-29T02:02:40.231798",
   "data_source": "real",
   "project_id": "80410036",
   "latest_daily": {
-    "date": "2026-03-28",
+    "date": "2026-03-29",
     "total_energy_kwh": 0.019,
-    "total_emissions_kg_co2": 0.0133,
+    "total_emissions_kg_co2": 0.0121,
     "builds_count": 36,
     "deployments_count": 6,
     "compliance_issues_opened": 2,
     "compliance_issues_resolved": 2,
-    "avg_carbon_intensity_g_per_kwh": 700,
+    "avg_carbon_intensity_g_per_kwh": 636,
     "optimization_recommendations_count": 25,
     "failed_jobs_count": 1,
-    "wasted_energy_kwh": 0.002
+    "wasted_energy_kwh": 0.0018
   },
   "latest_weekly": {
-    "week_start": "2026-03-22",
-    "week_end": "2026-03-28",
+    "week_start": "2026-03-23",
+    "week_end": "2026-03-29",
     "total_energy_kwh": 0.133,
-    "total_emissions_kg_co2": 0.0937,
+    "total_emissions_kg_co2": 0.092,
     "builds_count": 252,
     "deployments_count": 42,
     "compliance_issues_opened": 14,
@@ -28,12 +28,12 @@
     "avg_emissions_per_deployment_kg_co2": 0.0022,
     "optimization_recommendations_count": 175,
     "failed_jobs_count": 7,
-    "wasted_energy_kwh": 0.0141,
-    "energy_reduction_pct": 99.95
+    "wasted_energy_kwh": 0.0138,
+    "energy_reduction_pct": 99.93
   },
   "latest_monthly": null,
-  "total_days_tracked": 15,
-  "total_weeks_tracked": 9,
+  "total_days_tracked": 16,
+  "total_weeks_tracked": 10,
   "total_months_tracked": 0,
   "goals": [
     {
@@ -43,8 +43,8 @@
       "target_unit": "kg_co2",
       "baseline_value": 125,
       "deadline": "2026-12-31",
-      "current_value": 1.33,
-      "progress_percent": 73.4,
+      "current_value": 1.21,
+      "progress_percent": 75.8,
       "status": "on_track"
     },
     {
@@ -63,9 +63,9 @@
   "gitlab_data_source": "GitLab API",
   "latest_analysis": {
     "zone": "IN",
-    "carbon_intensity_g_per_kwh": 700,
+    "carbon_intensity_g_per_kwh": 636,
     "total_energy_kwh": 0.019,
-    "total_emissions_kg_co2": 0.0133,
+    "total_emissions_kg_co2": 0.0121,
     "jobs_analyzed": 36,
     "recommendations": [
       "\u274c 1 job(s) failed, wasting 0.00 kWh. Fix failures to reduce wasted energy."
