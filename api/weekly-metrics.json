@@ -174,5 +174,21 @@
     "failed_jobs_count": 7,
     "wasted_energy_kwh": 0.0135,
     "energy_reduction_pct": 99.91
+  },
+  {
+    "week_start": "2026-03-25",
+    "week_end": "2026-03-31",
+    "total_energy_kwh": 0.133,
+    "total_emissions_kg_co2": 0.089,
+    "builds_count": 252,
+    "deployments_count": 42,
+    "compliance_issues_opened": 14,
+    "compliance_issues_resolved": 14,
+    "avg_emissions_per_build_kg_co2": 0.0004,
+    "avg_emissions_per_deployment_kg_co2": 0.0021,
+    "optimization_recommendations_count": 175,
+    "failed_jobs_count": 7,
+    "wasted_energy_kwh": 0.0134,
+    "energy_reduction_pct": 99.86
   }
 ]
