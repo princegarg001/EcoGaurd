@@ -232,5 +232,18 @@
     "optimization_recommendations_count": 25,
     "failed_jobs_count": 1,
     "wasted_energy_kwh": 0.0019
+  },
+  {
+    "date": "2026-04-01",
+    "total_energy_kwh": 0.019,
+    "total_emissions_kg_co2": 0.0129,
+    "builds_count": 36,
+    "deployments_count": 6,
+    "compliance_issues_opened": 2,
+    "compliance_issues_resolved": 2,
+    "avg_carbon_intensity_g_per_kwh": 678,
+    "optimization_recommendations_count": 25,
+    "failed_jobs_count": 1,
+    "wasted_energy_kwh": 0.0019
   }
 ]
