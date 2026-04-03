@@ -1,3 +1,38 @@
+---
+title: Dashboard
+---
+
+# Dashboard
+
+The dashboard turns EcoGuard metrics into a readable sustainability view.
+
+## What it shows
+
+- CO₂ emissions over time
+- Energy usage by day and week
+- Compliance issues and recommendations
+- Grid carbon intensity and deployment windows
+- Sustainability goal progress
+
+## Data files
+
+- [dashboards/data/daily-metrics.json](../dashboards/data/daily-metrics.json)
+- [dashboards/data/weekly-metrics.json](../dashboards/data/weekly-metrics.json)
+- [dashboards/data/monthly-metrics.json](../dashboards/data/monthly-metrics.json)
+- [dashboards/data/summary.json](../dashboards/data/summary.json)
+- [dashboards/data/sustainability-goals.json](../dashboards/data/sustainability-goals.json)
+
+## Frontend files
+
+- [public/index.html](../public/index.html)
+- [public/dashboard.html](../public/dashboard.html)
+- [public/dashboard.js](../public/dashboard.js)
+
+## How it stays fresh
+
+1. The collector writes new metrics into JSON.
+2. The API or static files serve those metrics.
+3. The dashboard fetches the JSON and redraws charts.
 # EcoGuard Dashboard Guide
 
 The EcoGuard Dashboard visualizes sustainability metrics and tracks progress toward green goals.

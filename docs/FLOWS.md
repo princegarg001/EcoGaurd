@@ -1,3 +1,44 @@
+---
+title: Flows
+---
+
+# Flows
+
+Flows define when EcoGuard agents run and what each workflow publishes.
+
+## Core workflows
+
+### Eco Check
+
+- Trigger: merge request opened or updated
+- Purpose: analyze code for sustainability issues
+- Result: comments, suggestions, and possible issue creation
+
+### Carbon Track
+
+- Trigger: pipeline success or failure
+- Purpose: calculate pipeline emissions and publish a report
+- Result: comments and dashboard updates
+
+### Weekly Optimization
+
+- Trigger: scheduled daily run or periodic review window
+- Purpose: analyze the previous 7 days for heavy jobs
+- Result: optimization report and actionable recommendations
+
+### Eco Deploy
+
+- Trigger: deployment initiated
+- Purpose: choose a lower-carbon deployment time
+- Result: timing recommendation and optional deferral
+
+## Files to review
+
+- [flows/README.md](../flows/README.md)
+- [flows/eco-check.yml](../flows/eco-check.yml)
+- [flows/carbon-track.yml](../flows/carbon-track.yml)
+- [flows/weekly-optimization.yml](../flows/weekly-optimization.yml)
+- [flows/eco-deploy.yml](../flows/eco-deploy.yml)
 # EcoGuard Flow Configuration
 
 This document describes the YAML workflows that orchestrate EcoGuard agents.

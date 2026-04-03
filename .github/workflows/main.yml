@@ -31,6 +31,7 @@ jobs:
   collect-real-data:
     runs-on: ubuntu-latest
     needs: test-agents
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -47,6 +48,7 @@ jobs:
   build-dashboard:
     runs-on: ubuntu-latest
     needs: collect-real-data
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       - name: Build dashboard
@@ -55,14 +57,3 @@ jobs:
           mkdir -p ./public/api
           cp -r dashboards/data/* ./public/api/
           echo "Dashboard files ready for deployment"
-
-  deploy-pages:
-    runs-on: ubuntu-latest
-    needs: build-dashboard
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public

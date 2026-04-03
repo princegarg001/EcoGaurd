@@ -35,10 +35,16 @@ EcoGuard is a GitLab Duo-powered multi-agent platform that automates sustainabil
 
 ## Documentation
 
-- [Setup Guide](docs/SETUP.md)
+- [VitePress Docs Home](docs/index.md)
+- [Getting Started](docs/getting-started.md)
+- [Architecture](docs/architecture.md)
+- [Agents](docs/agents.md)
+- [Flows](docs/flows.md)
+- [Dashboard](docs/dashboard.md)
+- [CI/CD](docs/ci-cd.md)
+- [Testing](docs/testing.md)
+- [Troubleshooting](docs/troubleshooting.md)
 - [Agent Definitions](.gitlab/duo/AGENTS.md)
-- [Flow Configuration](docs/FLOWS.md)
-- [Dashboard Guide](docs/DASHBOARD.md)
 
 ## Standards & References
 
