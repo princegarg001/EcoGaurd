@@ -8,6 +8,10 @@ __pycache__/
 dist/
 build/
 
+# Node / VitePress
+node_modules/
+docs/.vitepress/cache/
+
 # IDE
 .vscode/
 .idea/
