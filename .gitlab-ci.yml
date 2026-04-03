@@ -169,14 +169,13 @@ pages:
   image: alpine:latest
   script:
     - mkdir -p public
-    - mkdir -p public/data
+    - mkdir -p public/api
     - echo "Copying dashboard files..."
-    - cp dashboards/src/index.html public/ 2>/dev/null && echo "Copied index.html" || echo "index.html not found"
-    - cp dashboards/src/dashboard.js public/ 2>/dev/null && echo "Copied dashboard.js" || echo "dashboard.js not found"
+    - test -f public/index.html && echo "Using existing index.html" || echo "index.html not found"
+    - test -f public/dashboard.html && echo "Using existing dashboard.html" || echo "dashboard.html not found"
+    - test -f public/dashboard.js && echo "Using existing dashboard.js" || echo "dashboard.js not found"
     - cp dashboards/src/README.md public/README.md 2>/dev/null && echo "Copied README.md" || echo "README.md not found"
-    - cp dashboards/data/*.json public/data/ 2>/dev/null && echo "Copied data files" || echo "data files not found"
-    - echo "Creating index page..."
-    - echo "<html><head><title>EcoGuard Dashboard</title></head><body><h1>EcoGuard Dashboard</h1><p><a href='index.html'>Open Dashboard</a></p></body></html>" > public/index.html || true
+    - cp dashboards/data/*.json public/api/ 2>/dev/null && echo "Copied data files to /api" || echo "data files not found"
     - echo "Dashboard deployed to GitLab Pages"
     - ls -la public/
   artifacts:
