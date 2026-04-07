@@ -562,6 +562,89 @@ html.dark .VPHomeHero .tagline {
   border-radius: 22px;
 }
 
+.data-health-panel {
+  margin: 20px 0 22px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+}
+
+.data-health-header h2 {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+}
+
+.data-health-header p {
+  margin: 0 0 14px;
+  color: #64748b;
+}
+
+.data-health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.data-health-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(37, 99, 235, 0.05);
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.data-health-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.data-health-value {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.data-health-hint {
+  margin: 12px 0 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.health-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+.health-pill--healthy {
+  background: rgba(22, 163, 74, 0.14);
+  color: #15803d;
+}
+
+.health-pill--warning {
+  background: rgba(245, 158, 11, 0.18);
+  color: #b45309;
+}
+
+.health-pill--error {
+  background: rgba(239, 68, 68, 0.16);
+  color: #b91c1c;
+}
+
+.health-pill--checking {
+  background: rgba(59, 130, 246, 0.14);
+  color: #1d4ed8;
+}
+
 html.dark .dashboard-intro {
   background: rgba(15, 23, 42, 0.72);
   border-color: rgba(148, 163, 184, 0.12);
@@ -571,6 +654,33 @@ html.dark .dashboard-frame {
   border-color: rgba(148, 163, 184, 0.12);
   background: #0f172a;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .data-health-panel {
+  border-color: rgba(148, 163, 184, 0.12);
+  background: rgba(15, 23, 42, 0.74);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+html.dark .data-health-header p,
+html.dark .data-health-hint,
+html.dark .data-health-label {
+  color: #94a3b8;
+}
+
+html.dark .data-health-item {
+  background: rgba(79, 140, 255, 0.08);
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+html.dark .data-health-value {
+  color: #f8fafc;
+}
+
+@media (max-width: 980px) {
+  .data-health-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 

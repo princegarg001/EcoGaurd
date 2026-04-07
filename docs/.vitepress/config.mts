@@ -31,6 +31,7 @@ export default defineConfig({
           items: [
             { text: 'Agents', link: '/agents' },
             { text: 'Flows', link: '/flows' },
+            { text: 'SDLC Models', link: '/sdlc-models' },
             { text: 'Real Data Collection', link: '/real-data' }
           ]
         },
