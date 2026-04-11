@@ -31,6 +31,8 @@ export default defineConfig({
             { text: 'Agents', link: '/agents' },
             { text: 'Flows', link: '/flows' },
             { text: 'SDLC Models', link: '/sdlc-models' },
+            { text: 'Requirements Analysis', link: '/requirements-analysis' },
+            { text: 'SRS Document', link: '/srs-document' },
             { text: 'Real Data Collection', link: '/real-data' }
           ]
         },
