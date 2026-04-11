@@ -47,7 +47,7 @@ features:
       <a href="/getting-started">Getting Started</a>
       <a href="/architecture">Architecture</a>
       <a href="/agents">Agents</a>
-      <a href="/dashboard">Dashboard</a>
+
     </div>
   </section>
 </div>

@@ -12,7 +12,6 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/getting-started' },
       { text: 'Architecture', link: '/architecture' },
-      { text: 'Dashboard', link: '/dashboard' },
       { text: 'Live Dashboard', link: '/live-dashboard' },
       { text: 'GitLab', link: 'https://gitlab.com/princegarg001-group/EcoGuard' }
     ],
@@ -39,7 +38,6 @@ export default defineConfig({
           text: 'Setup & Usage',
           items: [
             { text: 'API Setup', link: '/api-setup' },
-            { text: 'Dashboard', link: '/dashboard' },
             { text: 'Live Dashboard', link: '/live-dashboard' },
             { text: 'CI/CD', link: '/ci-cd' },
             { text: 'Testing', link: '/testing' }
