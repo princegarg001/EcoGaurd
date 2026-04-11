@@ -24,7 +24,6 @@ features:
     details: Pulls GitLab metrics and carbon intensity data into a structured, publishable reporting flow.
 ---
 
-
 <div class="home-grid">
   <section class="home-panel home-panel--accent">
     <p class="eyebrow">Overview</p>
@@ -47,7 +46,6 @@ features:
       <a href="/getting-started">Getting Started</a>
       <a href="/architecture">Architecture</a>
       <a href="/agents">Agents</a>
-
     </div>
   </section>
 </div>
