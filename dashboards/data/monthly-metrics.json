@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "month": "2026-03",
+    "total_energy_kwh": 313.7242,
+    "total_emissions_kg_co2": 128.1531,
+    "builds_count": 1089,
+    "deployments_count": 152,
+    "compliance_issues_opened": 45,
+    "compliance_issues_resolved": 60,
+    "avg_emissions_per_build_kg_co2": 0.1177,
+    "avg_emissions_per_deployment_kg_co2": 0.8431,
+    "optimization_recommendations_count": 621,
+    "failed_jobs_count": 21,
+    "wasted_energy_kwh": 15.0289,
+    "energy_reduction_pct": 0,
+    "sci_score": 0.1177
+  }
+]

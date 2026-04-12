@@ -6,8 +6,8 @@
     "target_unit": "kg_co2",
     "baseline_value": 125,
     "deadline": "2026-12-31",
-    "current_value": 2.08,
-    "progress_percent": 58.4,
+    "current_value": 1.94,
+    "progress_percent": 61.2,
     "status": "on_track"
   },
   {
