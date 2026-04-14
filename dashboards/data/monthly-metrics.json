@@ -1,18 +1,18 @@
 [
   {
     "month": "2026-03",
-    "total_energy_kwh": 256.5534,
-    "total_emissions_kg_co2": 104.872,
-    "builds_count": 1127,
-    "deployments_count": 156,
-    "compliance_issues_opened": 50,
+    "total_energy_kwh": 201.3826,
+    "total_emissions_kg_co2": 82.391,
+    "builds_count": 1166,
+    "deployments_count": 160,
+    "compliance_issues_opened": 54,
     "compliance_issues_resolved": 60,
-    "avg_emissions_per_build_kg_co2": 0.0931,
-    "avg_emissions_per_deployment_kg_co2": 0.6723,
-    "optimization_recommendations_count": 640,
-    "failed_jobs_count": 20,
-    "wasted_energy_kwh": 12.5289,
+    "avg_emissions_per_build_kg_co2": 0.0707,
+    "avg_emissions_per_deployment_kg_co2": 0.5149,
+    "optimization_recommendations_count": 659,
+    "failed_jobs_count": 19,
+    "wasted_energy_kwh": 10.0289,
     "energy_reduction_pct": 0,
-    "sci_score": 0.0931
+    "sci_score": 0.0707
   }
 ]
