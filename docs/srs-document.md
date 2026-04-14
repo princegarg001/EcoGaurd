@@ -519,6 +519,209 @@ flowchart TD
 
 ---
 
+## 🤖 6. AI-Assisted Requirements (Comparison)
+
+To enhance the system's capabilities beyond manual rule-based logic, the following AI-assisted requirements are introduced to compare against traditional manual features. These features aim to reduce human bottleneck by automating complex pattern recognition and code modification.
+
+> **AI-Assisted vs. Manual:** Each AI requirement below directly supersedes or augments a manual requirement, offering greater adaptability, speed, and scale — at the cost of added complexity, compute overhead, and governance concerns.
+
+<div class="srs-card srs-card--functional">
+  <h3>AI-FR-001: Predictive Emission Forecasting</h3>
+  <p><strong>Compared to:</strong> Manual trend review (UR-001)</p>
+  <p><strong>Description:</strong> Instead of relying solely on past data visualization for manual review, the system shall utilize machine learning models (e.g., LSTM time-series or Prophet) to forecast future carbon emissions up to 7 days ahead. This includes predicting energy spikes during seasonal traffic increases, large code branch merges, or scheduled release cycles.</p>
+  <p><strong>Input:</strong> Historical emission time-series data per project (minimum 30 days), runner metadata, calendar events</p>
+  <p><strong>Output:</strong> Probabilistic emission forecast with confidence intervals, surfaced in the dashboard and triggering pre-emptive scheduling recommendations</p>
+  <p><strong>Acceptance Criteria:</strong></p>
+  <ul>
+    <li>Forecasts shall achieve a Mean Absolute Percentage Error (MAPE) ≤ 15% on a rolling 7-day horizon</li>
+    <li>Predictions are refreshed automatically after each new pipeline run completes</li>
+    <li>A confidence band (80% interval) must accompany every forecast shown in the UI</li>
+    <li>If training data is insufficient (&lt; 30 data points), the system shall display a manual trend chart and suppress AI forecasts</li>
+  </ul>
+  <p><strong>AI Technology:</strong> Facebook Prophet / LSTM via scikit-learn or TensorFlow Lite; model artifacts versioned in the repository</p>
+  <p><strong>NFR References:</strong> NFR-016 (determinism), NFR-018 (benchmarking)</p>
+</div>
+
+<div class="srs-card srs-card--functional">
+  <h3>AI-FR-002: Intelligent Remediation Generation</h3>
+  <p><strong>Compared to:</strong> Static Optimization Agent (FR-003)</p>
+  <p><strong>Description:</strong> While the manual agent highlights issues via static rules, the AI-assisted system shall employ an LLM-based agent (e.g., GitLab Duo / OpenAI GPT-4o) to contextualize pipeline failures and inefficiencies. It must generate automated merge requests with context-aware, code-level optimizations — rewriting `.gitlab-ci.yml` and Dockerfile configurations — to directly reduce the carbon footprint without requiring a developer's initial draft.</p>
+  <p><strong>Input:</strong> Raw `.gitlab-ci.yml` content, job duration logs, CPU/memory utilization metrics, identified inefficiency categories from FR-003</p>
+  <p><strong>Output:</strong> A fully formed merge request containing patched CI/CD configuration files, inline comments explaining each change, and an estimated emission reduction percentage</p>
+  <p><strong>Acceptance Criteria:</strong></p>
+  <ul>
+    <li>Generated merge requests must pass automated CI syntax validation before being opened</li>
+    <li>Each MR description must include a carbon saving estimate (kg CO₂) and a confidence score</li>
+    <li>Remediation suggestions must not remove any job flagged as a required status check</li>
+    <li>Human approval is mandatory before any AI-generated MR is merged (human-in-the-loop gate)</li>
+    <li>The system shall achieve ≥ 70% MR acceptance rate measured over a rolling 30-day window</li>
+  </ul>
+  <p><strong>AI Technology:</strong> LLM API (GitLab Duo / OpenAI GPT-4o) with structured output / function calling; prompt templates version-controlled</p>
+  <p><strong>NFR References:</strong> NFR-017 (sandboxed fallback), NFR-018 (benchmarking)</p>
+</div>
+
+<div class="srs-card srs-card--functional">
+  <h3>AI-FR-003: Dynamic Anomaly Detection</h3>
+  <p><strong>Compared to:</strong> Static Threshold Alerts (UR-002)</p>
+  <p><strong>Description:</strong> Rather than relying on rigid, pre-configured high-emission thresholds, the system shall train an unsupervised anomaly detection model (e.g., Isolation Forest or DBSCAN) on the historical baseline behaviour of each specific CI/CD pipeline. Alerts are raised automatically for statistically anomalous deviations, adapting to evolving pipeline structures without manual threshold updates.</p>
+  <p><strong>Input:</strong> Per-job emission time-series, pipeline structural metadata (job count, parallelism), runner utilization rates</p>
+  <p><strong>Output:</strong> Anomaly score per pipeline run (0–1), binary alert flag, and a human-readable root-cause hypothesis surfaced to the team lead</p>
+  <p><strong>Acceptance Criteria:</strong></p>
+  <ul>
+    <li>Model retrains automatically every 7 days or after 500 new pipeline runs, whichever comes first</li>
+    <li>False-positive rate shall remain below 10% measured against a manually labelled validation set</li>
+    <li>Anomaly alerts must fire within 5 minutes of pipeline completion (same as UR-001 data freshness SLA)</li>
+    <li>The system must surface the top-3 contributing jobs to each anomaly in the alert payload</li>
+    <li>Baseline model bootstrapping requires a minimum of 50 pipeline runs; system falls back to static thresholds during the cold-start period</li>
+  </ul>
+  <p><strong>AI Technology:</strong> scikit-learn Isolation Forest; model serialized with joblib and stored in <code>models/</code></p>
+  <p><strong>NFR References:</strong> NFR-016 (determinism), NFR-017 (fallback), NFR-018 (benchmarking)</p>
+</div>
+
+<div class="srs-card srs-card--functional">
+  <h3>AI-FR-004: Context-Aware Documentation & Compliance</h3>
+  <p><strong>Compared to:</strong> Manual Report Generation (UR-003)</p>
+  <p><strong>Description:</strong> The system shall auto-generate detailed, narrative-driven compliance reports formatted specifically for varying regulatory bodies (EU CSRD, ISO 14064, GHG Protocol). An LLM layer translates raw emission metrics into structured audit narratives, shifting the manual burden of compiling different data sets for different audits entirely to AI.</p>
+  <p><strong>Input:</strong> Aggregated monthly emission metrics, sustainability goals progress data, regulatory body selector (EU / ISO / GHG), organization profile</p>
+  <p><strong>Output:</strong> A formatted PDF/DOCX report with executive summary, data tables, trend narrative, methodology disclosure, and digital audit signature</p>
+  <p><strong>Acceptance Criteria:</strong></p>
+  <ul>
+    <li>Report must be generated and available for download within 60 seconds of user request</li>
+    <li>All numerical data in the narrative must be validated against the source JSON with a ±0.01 kg CO₂ tolerance — no AI hallucination of figures permitted</li>
+    <li>Every report shall include a machine-readable JSON-LD metadata block for automated regulatory ingestion</li>
+    <li>The system shall support at minimum three output formats: PDF, DOCX, and CSV</li>
+    <li>Narrative text quality shall be reviewed via automated Flesch-Kincaid readability scoring (target grade level ≤ 12)</li>
+  </ul>
+  <p><strong>AI Technology:</strong> LLM with retrieval-augmented generation (RAG) over the organization's emission data; output grounded and fact-checked before rendering</p>
+  <p><strong>NFR References:</strong> NFR-016 (determinism), NFR-017 (sandboxed fallback)</p>
+</div>
+
+### AI Requirements Lifecycle Flow
+
+```mermaid
+flowchart TD
+    subgraph Data Ingestion
+        D1["Pipeline Metrics\n(FR-001)"]
+        D2["Carbon Intensity\n(IR-002)"]
+        D3["Historical Baseline\n(12-month store)"]
+    end
+
+    subgraph AI Processing Layer
+        AI1["AI-FR-001\nPredictive Forecasting\n(Prophet / LSTM)"]
+        AI2["AI-FR-002\nRemediation Generation\n(LLM Agent)"]
+        AI3["AI-FR-003\nAnomaly Detection\n(Isolation Forest)"]
+        AI4["AI-FR-004\nCompliance Docs\n(LLM + RAG)"]
+    end
+
+    subgraph Validation Gate
+        V1["Sandbox Validator\n(NFR-017)"]
+        V2["Consistency Monitor\n(NFR-018)"]
+    end
+
+    subgraph Output
+        O1["Dashboard Forecast\nChart"]
+        O2["Auto MR /\nCode Patch"]
+        O3["Anomaly Alert\n+ Root Cause"]
+        O4["Regulatory PDF\nReport"]
+    end
+
+    D1 --> AI1 & AI2 & AI3
+    D2 --> AI1
+    D3 --> AI1 & AI3
+    D1 --> AI4
+
+    AI1 --> V2 --> O1
+    AI2 --> V1 --> O2
+    AI3 --> V2 --> O3
+    AI4 --> V1 --> O4
+
+    style AI1 fill:#7c3aed,stroke:#6d28d9,color:#fff
+    style AI2 fill:#7c3aed,stroke:#6d28d9,color:#fff
+    style AI3 fill:#7c3aed,stroke:#6d28d9,color:#fff
+    style AI4 fill:#7c3aed,stroke:#6d28d9,color:#fff
+    style V1 fill:#d97706,stroke:#b45309,color:#fff
+    style V2 fill:#d97706,stroke:#b45309,color:#fff
+    style O1 fill:#059669,stroke:#047857,color:#fff
+    style O2 fill:#059669,stroke:#047857,color:#fff
+    style O3 fill:#059669,stroke:#047857,color:#fff
+    style O4 fill:#059669,stroke:#047857,color:#fff
+```
+
+---
+
+## ⚖️ 7. Conclusion: Manual vs. AI-Assisted Execution
+
+When evaluating the platform's execution, there are distinct trade-offs between manual (rule-based) approaches and AI-assisted workflows. A successful implementation requires balancing the precision of manual rules with the adaptability of AI. The conclusions drawn below are informed by the four paired requirement comparisons documented in Section 6.
+
+<div class="osrmt-benefits">
+  <div class="srs-card">
+    <h3>📉 Limitations of Manual Execution</h3>
+    <ul>
+      <li><strong>Scalability lag:</strong> Manual review of pipeline emissions becomes unmanageable across hundreds of repositories. Team leads simply cannot review every job log.</li>
+      <li><strong>Cognitive Overload:</strong> Engineers are forced to interpret raw data and manually translate insights into code changes — a high-effort, low-leverage activity.</li>
+      <li><strong>Static Rules:</strong> Heuristics for optimization cannot adapt to unique pipeline structures without constant, labor-intensive human updates.</li>
+      <li><strong>Delayed Action:</strong> Reporting and remediation completely depend on human time availability, drastically delaying potential energy savings.</li>
+      <li><strong>Threshold Drift:</strong> Manually configured emission thresholds become stale as pipelines evolve, leading to alert fatigue from false positives or missed anomalies.</li>
+      <li><strong>Inconsistent Reporting Quality:</strong> Human-compiled compliance documents vary in structure, depth, and language across reporters, creating audit trail inconsistencies.</li>
+    </ul>
+  </div>
+  <div class="srs-card">
+    <h3>⚠️ Limitations of AI-Assisted Execution</h3>
+    <ul>
+      <li><strong>Consistency lag:</strong> AI models exhibit non-deterministic behavior, proposing completely different code optimizations for the exact same pipeline data over time.</li>
+      <li><strong>Compute Overhead:</strong> Running LLMs for code optimization generates its own severe carbon footprint, which can ironically outweigh the pipeline energy savings if not metered carefully.</li>
+      <li><strong>Hallucinations:</strong> The AI may confidently suggest invalid configuration changes that structurally break CI/CD pipelines or fabricate emission figures in reports.</li>
+      <li><strong>Data Privacy:</strong> Sending proprietary CI/CD logs and internal code to external LLM providers introduces significant data governance and IP risks.</li>
+      <li><strong>Cold-Start Problem:</strong> AI models for anomaly detection and forecasting require substantial historical data (30–50+ pipeline runs) before producing reliable outputs.</li>
+      <li><strong>Model Drift:</strong> Without continuous retraining, AI models degrade in accuracy as pipeline structures and team workflows evolve, requiring ongoing MLOps investment.</li>
+    </ul>
+  </div>
+</div>
+
+### Consistency Assurance Requirements
+
+To heavily mitigate the consistency and reliability lags identified in AI-assisted execution, the following hard safeguards are implemented:
+
+<div class="srs-card srs-card--nfr">
+  <h3>NFR-016: AI Output Consistency & Determinism</h3>
+  <p><strong>Description:</strong> The system shall enforce deterministic parameter settings (e.g., Temperature = 0.0, strict seed values) for all analytical LLM requests. This ensures maximum determination, yielding highly consistent optimization recommendations for identical inputs every time.</p>
+</div>
+
+<div class="srs-card srs-card--nfr">
+  <h3>NFR-017: Fallback to Manual Heuristics (Sandboxing)</h3>
+  <p><strong>Description:</strong> The system shall securely evaluate all AI-generated code optimizations using an isolated sandboxed validation test. If the AI output fails automated syntax and logic validation, the system must instantly override the AI and transparently fall back to the manual rule-based logic (FR-003).</p>
+</div>
+
+<div class="srs-card srs-card--nfr">
+  <h3>NFR-018: Continuous LLM Benchmarking</h3>
+  <p><strong>Description:</strong> The system shall automatically log and test the acceptance rate and output variance of the LLM responses over time, establishing an internal confidence score. If the score drops below 85% consistency, AI capabilities for that module will automatically disable.</p>
+</div>
+
+### Strategic Recommendations
+
+Based on the comparative analysis above, the following strategies are recommended to harness AI benefits while preserving the reliability of manual baselines:
+
+<div class="strategy-grid">
+  <div class="srs-card srs-card--business">
+    <h3>🔬 Hybrid Execution Model</h3>
+    <p>Deploy AI and manual systems in parallel rather than replacing one with the other. AI handles high-volume pattern recognition tasks; manual rules serve as the authoritative fallback and override mechanism. Neither system is exclusively trusted.</p>
+  </div>
+  <div class="srs-card srs-card--business">
+    <h3>🧑‍⚖️ Human-in-the-Loop Gates</h3>
+    <p>All AI-generated merge requests, anomaly alerts above severity level 2, and compliance reports must receive explicit human approval before being acted upon. This prevents automated changes from propagating through production pipelines unchecked.</p>
+  </div>
+  <div class="srs-card srs-card--business">
+    <h3>🌍 On-Premise / Local LLM Priority</h3>
+    <p>To mitigate data privacy concerns, the architecture shall prefer self-hosted or on-premise LLM deployments (e.g., Ollama + Llama 3) for tasks involving proprietary pipeline code. External API calls are reserved for non-sensitive analytical tasks only.</p>
+  </div>
+  <div class="srs-card srs-card--business">
+    <h3>📏 AI Carbon Accounting</h3>
+    <p>The platform shall measure and report the AI subsystem's own energy consumption as a separate dashboard metric. This ensures that AI-driven optimizations deliver a net-positive carbon outcome — the AI must save more emissions than it consumes.</p>
+  </div>
+</div>
+
+---
+
 ## 📊 Requirements Summary
 
 <div class="summary-grid">
@@ -531,11 +734,11 @@ flowchart TD
     <span class="summary-label">User Requirements</span>
   </div>
   <div class="summary-item summary-item--functional">
-    <span class="summary-count">5+</span>
+    <span class="summary-count">9+</span>
     <span class="summary-label">Functional Requirements</span>
   </div>
   <div class="summary-item summary-item--nfr">
-    <span class="summary-count">15</span>
+    <span class="summary-count">18</span>
     <span class="summary-label">Non-Functional Requirements</span>
   </div>
   <div class="summary-item summary-item--interface">
@@ -543,6 +746,146 @@ flowchart TD
     <span class="summary-label">Interface Requirements</span>
   </div>
 </div>
+
+---
+
+## 📋 8. Manual vs. AI-Assisted: Comparison Table
+
+The table below provides a definitive, side-by-side evaluation of all four paired requirements across six evaluation dimensions.
+
+<div class="comparison-wrapper">
+  <div class="comparison-header">
+    <div class="comparison-header-cell comparison-header-dim">Dimension</div>
+    <div class="comparison-header-cell comparison-header-manual">🔧 Manual Approach</div>
+    <div class="comparison-header-cell comparison-header-ai">🤖 AI-Assisted Approach</div>
+    <div class="comparison-header-cell comparison-header-verdict">Verdict</div>
+  </div>
+
+  <div class="comparison-section-label">📈 Emission Forecasting (UR-001 vs AI-FR-001)</div>
+  <div class="comparison-row">
+    <div class="comparison-cell comparison-dim">Accuracy</div>
+    <div class="comparison-cell comparison-manual">Retroactive only — shows past trends with no predictive capability</div>
+    <div class="comparison-cell comparison-ai">MAPE ≤ 15% on 7-day horizon with probabilistic confidence bands</div>
+    <div class="comparison-cell comparison-verdict verdict-ai">✅ AI Wins</div>
+  </div>
+  <div class="comparison-row comparison-row-alt">
+    <div class="comparison-cell comparison-dim">Response Time</div>
+    <div class="comparison-cell comparison-manual">Immediate (static chart render)</div>
+    <div class="comparison-cell comparison-ai">Model inference adds 2–5 seconds per prediction</div>
+    <div class="comparison-cell comparison-verdict verdict-manual">✅ Manual Wins</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell comparison-dim">Adaptability</div>
+    <div class="comparison-cell comparison-manual">None — historical aggregation only</div>
+    <div class="comparison-cell comparison-ai">Retrains on new data automatically every 7 days</div>
+    <div class="comparison-cell comparison-verdict verdict-ai">✅ AI Wins</div>
+  </div>
+  <div class="comparison-row comparison-row-alt">
+    <div class="comparison-cell comparison-dim">Data Requirement</div>
+    <div class="comparison-cell comparison-manual">Works from day 1 with any data volume</div>
+    <div class="comparison-cell comparison-ai">Requires ≥ 30 pipeline runs to bootstrap; cold-start gap</div>
+    <div class="comparison-cell comparison-verdict verdict-manual">✅ Manual Wins</div>
+  </div>
+
+  <div class="comparison-section-label">🔧 Pipeline Optimization (FR-003 vs AI-FR-002)</div>
+  <div class="comparison-row">
+    <div class="comparison-cell comparison-dim">Automation Depth</div>
+    <div class="comparison-cell comparison-manual">Identifies issues; developer must manually implement fixes</div>
+    <div class="comparison-cell comparison-ai">Auto-generates merge requests with ready-to-merge code patches</div>
+    <div class="comparison-cell comparison-verdict verdict-ai">✅ AI Wins</div>
+  </div>
+  <div class="comparison-row comparison-row-alt">
+    <div class="comparison-cell comparison-dim">Reliability</div>
+    <div class="comparison-cell comparison-manual">Deterministic — same input always yields same recommendation</div>
+    <div class="comparison-cell comparison-ai">Non-deterministic — Temperature = 0.0 mitigates but cannot eliminate variance</div>
+    <div class="comparison-cell comparison-verdict verdict-manual">✅ Manual Wins</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell comparison-dim">Scalability</div>
+    <div class="comparison-cell comparison-manual">Linear human cost per additional repository</div>
+    <div class="comparison-cell comparison-ai">Near-constant LLM cost; handles hundreds of repos concurrently</div>
+    <div class="comparison-cell comparison-verdict verdict-ai">✅ AI Wins</div>
+  </div>
+  <div class="comparison-row comparison-row-alt">
+    <div class="comparison-cell comparison-dim">Risk of Error</div>
+    <div class="comparison-cell comparison-manual">Low — recommendations are audited heuristics</div>
+    <div class="comparison-cell comparison-ai">High — LLM hallucinations may break pipelines; sandbox gate required</div>
+    <div class="comparison-cell comparison-verdict verdict-manual">✅ Manual Wins</div>
+  </div>
+
+  <div class="comparison-section-label">🚨 Anomaly Detection (UR-002 vs AI-FR-003)</div>
+  <div class="comparison-row">
+    <div class="comparison-cell comparison-dim">Alert Precision</div>
+    <div class="comparison-cell comparison-manual">Fixed thresholds cause alert fatigue as pipelines drift</div>
+    <div class="comparison-cell comparison-ai">Adaptive baseline; false-positive rate &lt; 10%</div>
+    <div class="comparison-cell comparison-verdict verdict-ai">✅ AI Wins</div>
+  </div>
+  <div class="comparison-row comparison-row-alt">
+    <div class="comparison-cell comparison-dim">Setup Complexity</div>
+    <div class="comparison-cell comparison-manual">Simple — configure one threshold per project</div>
+    <div class="comparison-cell comparison-ai">Requires model training pipeline, MLOps tooling, and retraining schedule</div>
+    <div class="comparison-cell comparison-verdict verdict-manual">✅ Manual Wins</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell comparison-dim">Root-Cause Insight</div>
+    <div class="comparison-cell comparison-manual">Alert only — no attribution to specific contributing jobs</div>
+    <div class="comparison-cell comparison-ai">Surfaces top-3 contributing jobs with anomaly scores in alert payload</div>
+    <div class="comparison-cell comparison-verdict verdict-ai">✅ AI Wins</div>
+  </div>
+  <div class="comparison-row comparison-row-alt">
+    <div class="comparison-cell comparison-dim">Compute Cost</div>
+    <div class="comparison-cell comparison-manual">Near-zero — threshold comparison only</div>
+    <div class="comparison-cell comparison-ai">Model inference per pipeline run; retraining every 7 days adds overhead</div>
+    <div class="comparison-cell comparison-verdict verdict-manual">✅ Manual Wins</div>
+  </div>
+
+  <div class="comparison-section-label">📄 Compliance Reporting (UR-003 vs AI-FR-004)</div>
+  <div class="comparison-row">
+    <div class="comparison-cell comparison-dim">Effort Required</div>
+    <div class="comparison-cell comparison-manual">Hours of manual data compilation and narrative writing per report</div>
+    <div class="comparison-cell comparison-ai">Generated in ≤ 60 seconds from a single user click</div>
+    <div class="comparison-cell comparison-verdict verdict-ai">✅ AI Wins</div>
+  </div>
+  <div class="comparison-row comparison-row-alt">
+    <div class="comparison-cell comparison-dim">Regulatory Adaptability</div>
+    <div class="comparison-cell comparison-manual">Static template — one format for all auditors</div>
+    <div class="comparison-cell comparison-ai">Dynamic templates per regulatory body (EU CSRD, ISO 14064, GHG Protocol)</div>
+    <div class="comparison-cell comparison-verdict verdict-ai">✅ AI Wins</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell comparison-dim">Data Accuracy</div>
+    <div class="comparison-cell comparison-manual">Human-verified figures; low hallucination risk</div>
+    <div class="comparison-cell comparison-ai">RAG-grounded; figures validated ±0.01 kg CO₂ — hallucination remains a residual risk</div>
+    <div class="comparison-cell comparison-verdict verdict-manual">✅ Manual Wins</div>
+  </div>
+  <div class="comparison-row comparison-row-alt">
+    <div class="comparison-cell comparison-dim">Data Privacy</div>
+    <div class="comparison-cell comparison-manual">Data stays entirely on-premise</div>
+    <div class="comparison-cell comparison-ai">External LLM API calls risk exposing proprietary metrics unless on-premise LLM is used</div>
+    <div class="comparison-cell comparison-verdict verdict-manual">✅ Manual Wins</div>
+  </div>
+
+  <div class="comparison-section-label">🏆 Overall Scorecard</div>
+  <div class="comparison-row comparison-row-score">
+    <div class="comparison-cell comparison-dim"><strong>Dimensions Won</strong></div>
+    <div class="comparison-cell comparison-manual score-manual"><strong>8 / 16</strong></div>
+    <div class="comparison-cell comparison-ai score-ai"><strong>8 / 16</strong></div>
+    <div class="comparison-cell comparison-verdict verdict-tie">🤝 Tied</div>
+  </div>
+  <div class="comparison-row comparison-row-alt comparison-row-score">
+    <div class="comparison-cell comparison-dim"><strong>Best Use Case</strong></div>
+    <div class="comparison-cell comparison-manual">Deterministic tasks, low-data environments, high-security contexts</div>
+    <div class="comparison-cell comparison-ai">High-volume analysis, adaptive alerting, multi-format reporting</div>
+    <div class="comparison-cell comparison-verdict verdict-hybrid">🔀 Hybrid</div>
+  </div>
+  <div class="comparison-row comparison-row-score">
+    <div class="comparison-cell comparison-dim"><strong>Recommended Strategy</strong></div>
+    <div class="comparison-cell" style="grid-column: span 2; text-align:center; color: var(--vp-c-text-1); font-weight: 600;">Deploy both in parallel — AI handles volume & adaptability, Manual rules serve as the authoritative safety net and audit baseline.</div>
+    <div class="comparison-cell comparison-verdict verdict-hybrid">🔀 Hybrid</div>
+  </div>
+</div>
+
+
 
 <style>
 .srs-hero {
@@ -663,8 +1006,122 @@ flowchart TD
 .summary-item--nfr .summary-count { color: #d97706; }
 .summary-item--interface .summary-count { color: #dc2626; }
 
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+/* ── Comparison Table ── */
+.comparison-wrapper {
+  margin: 1.5rem 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+}
+
+.comparison-header {
+  display: grid;
+  grid-template-columns: 180px 1fr 1fr 120px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 0;
+}
+.comparison-header-cell {
+  padding: 1rem 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+.comparison-header-manual { color: #60a5fa; }
+.comparison-header-ai { color: #a78bfa; }
+.comparison-header-verdict { color: #34d399; text-align: center; }
+
+.comparison-section-label {
+  grid-column: 1 / -1;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(90deg, rgba(37,99,235,0.1), rgba(124,58,237,0.08));
+  border-top: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--vp-c-divider);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--vp-c-text-2);
+  letter-spacing: 0.04em;
+}
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 1fr 120px;
+  border-top: 1px solid var(--vp-c-divider);
+  transition: background 0.15s ease;
+}
+.comparison-row:hover { background: var(--vp-c-bg-soft); }
+.comparison-row-alt { background: rgba(0,0,0,0.02); }
+.comparison-row-alt:hover { background: var(--vp-c-bg-soft); }
+.comparison-row-score { background: rgba(37,99,235,0.04); }
+
+.comparison-cell {
+  padding: 0.75rem 1.2rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--vp-c-text-2);
+  border-right: 1px solid var(--vp-c-divider);
+}
+.comparison-cell:last-child { border-right: none; }
+
+.comparison-dim {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--vp-c-text-1);
+  display: flex;
+  align-items: center;
+}
+.comparison-manual {
+  border-left: 3px solid #3b82f6;
+}
+.comparison-ai {
+  border-left: 3px solid #8b5cf6;
+}
+.comparison-verdict {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+}
+.verdict-ai { color: #7c3aed; }
+.verdict-manual { color: #2563eb; }
+.verdict-tie { color: #059669; }
+.verdict-hybrid { color: #d97706; }
+
+.score-manual {
+  color: #2563eb;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.score-ai {
+  color: #7c3aed;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 768px) {
-  .nfr-grid, .osrmt-benefits { grid-template-columns: 1fr; }
+  .nfr-grid, .osrmt-benefits, .strategy-grid { grid-template-columns: 1fr; }
   .summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .comparison-header,
+  .comparison-row {
+    grid-template-columns: 1fr;
+  }
+  .comparison-header-cell,
+  .comparison-cell { border-right: none; border-bottom: 1px solid var(--vp-c-divider); }
+  .comparison-dim { font-weight: 800; background: var(--vp-c-bg-soft); }
 }
 </style>
