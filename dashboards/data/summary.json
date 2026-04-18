@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-04-17T02:09:13.425165",
+  "timestamp": "2026-04-18T01:59:59.223412",
   "data_source": "real",
   "project_id": "80410036",
   "latest_daily": {
-    "date": "2026-04-17",
+    "date": "2026-04-18",
     "total_energy_kwh": 0.0292,
-    "total_emissions_kg_co2": 0.0187,
+    "total_emissions_kg_co2": 0.0204,
     "builds_count": 56,
     "deployments_count": 6,
     "compliance_issues_opened": 2,
     "compliance_issues_resolved": 2,
-    "avg_carbon_intensity_g_per_kwh": 640,
+    "avg_carbon_intensity_g_per_kwh": 700,
     "optimization_recommendations_count": 24,
     "failed_jobs_count": 0,
     "wasted_energy_kwh": 0
   },
   "latest_weekly": {
-    "week_start": "2026-04-11",
-    "week_end": "2026-04-17",
+    "week_start": "2026-04-12",
+    "week_end": "2026-04-18",
     "total_energy_kwh": 0.2044,
-    "total_emissions_kg_co2": 0.1337,
+    "total_emissions_kg_co2": 0.1333,
     "builds_count": 392,
     "deployments_count": 42,
     "compliance_issues_opened": 14,
@@ -29,23 +29,23 @@
     "optimization_recommendations_count": 168,
     "failed_jobs_count": 0,
     "wasted_energy_kwh": 0,
-    "energy_reduction_pct": -13.05
+    "energy_reduction_pct": -9.48
   },
   "latest_monthly": {
     "month": "2026-03",
-    "total_energy_kwh": 47.8702,
-    "total_emissions_kg_co2": 19.7466,
-    "builds_count": 1289,
-    "deployments_count": 172,
+    "total_energy_kwh": 0.6994,
+    "total_emissions_kg_co2": 0.467,
+    "builds_count": 1332,
+    "deployments_count": 176,
     "compliance_issues_opened": 60,
     "compliance_issues_resolved": 60,
-    "avg_emissions_per_build_kg_co2": 0.0153,
-    "avg_emissions_per_deployment_kg_co2": 0.1148,
-    "optimization_recommendations_count": 716,
-    "failed_jobs_count": 16,
-    "wasted_energy_kwh": 2.5289,
+    "avg_emissions_per_build_kg_co2": 0.0004,
+    "avg_emissions_per_deployment_kg_co2": 0.0027,
+    "optimization_recommendations_count": 735,
+    "failed_jobs_count": 15,
+    "wasted_energy_kwh": 0.0289,
     "energy_reduction_pct": 0,
-    "sci_score": 0.0153
+    "sci_score": 0.0004
   },
   "total_days_tracked": 30,
   "total_weeks_tracked": 12,
@@ -58,8 +58,8 @@
       "target_unit": "kg_co2",
       "baseline_value": 125,
       "deadline": "2026-12-31",
-      "current_value": 1.87,
-      "progress_percent": 62.6,
+      "current_value": 2.04,
+      "progress_percent": 59.2,
       "status": "on_track"
     },
     {
@@ -78,9 +78,9 @@
   "gitlab_data_source": "GitLab API",
   "latest_analysis": {
     "zone": "IN",
-    "carbon_intensity_g_per_kwh": 640,
+    "carbon_intensity_g_per_kwh": 700,
     "total_energy_kwh": 0.0292,
-    "total_emissions_kg_co2": 0.0187,
+    "total_emissions_kg_co2": 0.0204,
     "jobs_analyzed": 56,
     "recommendations": [
       "\u2705 Pipeline is running efficiently! Keep up the good work."
