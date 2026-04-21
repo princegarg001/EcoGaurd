@@ -36,6 +36,7 @@ export default withMermaid(
               { text: 'Requirements Analysis', link: '/requirements-analysis' },
               { text: 'SRS Document', link: '/srs-document' },
               { text: '📐 Use Case Diagram', link: '/use-case-diagram' },
+              { text: '📐 UML Diagrams', link: '/uml-diagrams' },
               { text: 'Real Data Collection', link: '/real-data' }
             ]
           },
