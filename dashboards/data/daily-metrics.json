@@ -1,18 +1,5 @@
 [
   {
-    "date": "2026-03-23",
-    "total_energy_kwh": 0.019,
-    "total_emissions_kg_co2": 0.0137,
-    "builds_count": 36,
-    "deployments_count": 6,
-    "compliance_issues_opened": 2,
-    "compliance_issues_resolved": 2,
-    "avg_carbon_intensity_g_per_kwh": 721,
-    "optimization_recommendations_count": 25,
-    "failed_jobs_count": 1,
-    "wasted_energy_kwh": 0.0021
-  },
-  {
     "date": "2026-03-24",
     "total_energy_kwh": 0.019,
     "total_emissions_kg_co2": 0.0136,
@@ -385,6 +372,19 @@
     "compliance_issues_opened": 2,
     "compliance_issues_resolved": 2,
     "avg_carbon_intensity_g_per_kwh": 638,
+    "optimization_recommendations_count": 24,
+    "failed_jobs_count": 0,
+    "wasted_energy_kwh": 0
+  },
+  {
+    "date": "2026-04-22",
+    "total_energy_kwh": 0.0292,
+    "total_emissions_kg_co2": 0.0187,
+    "builds_count": 56,
+    "deployments_count": 6,
+    "compliance_issues_opened": 2,
+    "compliance_issues_resolved": 2,
+    "avg_carbon_intensity_g_per_kwh": 639,
     "optimization_recommendations_count": 24,
     "failed_jobs_count": 0,
     "wasted_energy_kwh": 0
