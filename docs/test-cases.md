@@ -1,62 +1,56 @@
-# EcoGuard Test Cases
+# Test Cases & Scenario Analysis
 
-This document provides a comprehensive overview of the test cases used to validate the core functionality of the EcoGuard system. The tests are broken down by their respective agents, with execution evidence and a final comparison table detailing their scope.
+This document outlines the testing strategy for the EcoGuard system, comparing manual test case design, AI-generated test scenarios using TestGPT, and the actual automated execution results using PyTest.
 
-## 1. Carbon Footprint Agent
+## 1. Manual Test Case Design (Excel)
 
-The Carbon Footprint Agent tests verify that our CI/CD pipeline correctly calculates energy usage and carbon emissions using realistic region-specific carbon intensities.
+We initially designed the core test cases and scenarios manually using Excel. This approach helped us establish the baseline requirements and expected behavior for each agent.
 
-![Carbon Footprint Tests](/Screenshot%202026-04-07%20115646.png)
+![Excel Test Cases](/Screenshot%202026-04-28%20105652.png)
 
-**Key Test Validations:**
-- **Energy Accuracy:** Ensures `JobMetrics` conversions logic (cores & duration to kWh) is mathematically correct.
-- **Pipeline Aggregation:** Validates that multi-job pipelines accurately sum energy consumption.
-- **Zone Variances:** Confirms emissions calculations adapt to differing regional carbon intensities (e.g., US-CA vs AU).
+**Characteristics of Manual Design:**
+- **Focus:** Core functionality and happy paths (e.g., detecting inefficient loops, basic API integrations).
+- **Structure:** Standard format (TC_ID, Scenario, Steps, Test Data, Expected Result).
+- **Coverage:** Primary use cases for Sustainability Compliance, Carbon Footprint, and Eco-Friendly Deployment agents.
 
-## 2. Sustainability Compliance Agent
+## 2. AI-Generated Test Cases (TestGPT)
 
-The Sustainability Compliance tests evaluate the static analysis logic, ensuring energy-inefficient coding patterns are accurately flagged without raising false positives on clean code.
+To expand our test coverage and identify edge cases we might have missed, we utilized TestGPT to generate additional test scenarios.
 
-![Compliance Agent Tests](/Screenshot%202026-04-07%20115658.png)
+![TestGPT Test Cases](/Screenshot%202026-04-28%20110816.png)
 
-**Key Test Validations:**
-- **Inefficient Loops:** Detects constant computations inside loops.
-- **Unused Variables:** Validates AST (Abstract Syntax Tree) traversal to find allocated but unused variables.
-- **Issue Assertions:** Checks that every flagged issue possesses an actionable suggestion and estimated energy savings.
+**Characteristics of AI Generation:**
+- **Focus:** Edge cases, performance limits, and complex tradeoffs.
+- **Added Scenarios:** 
+  - *Compliance:* Large codebase analysis, false positive checks, minified code handling.
+  - *Carbon Footprint:* Region variation, missing metrics handling, multi-cloud comparisons.
+  - *Deployment:* Cost vs. carbon tradeoffs, auto-scaling optimization, low-latency constraints.
+- **Value:** Significantly broadened the scope of our testing strategy with minimal manual effort.
 
-## 3. Eco-Friendly Deployment Agent
+## 3. Automated Test Execution (PyTest)
 
-The Eco-Friendly Deployment tests ensure that our optimizer correctly suggests the greenest deployment windows and regions based on projected carbon intensities.
+Finally, we implemented the test scenarios as automated unit and integration tests using Python's `pytest` framework. 
 
-![Deployment Agent Tests](/Screenshot%202026-04-07%20115715.png)
+![PyTest Execution Results](/Screenshot%202026-04-28%20120624.png)
 
-**Key Test Validations:**
-- **Optimal Time Selection:** Asserts the recommended deployment time aligns with the lowest predicted intensity.
-- **Alternative Regions:** Checks if the agent suggests geographically diverse alternatives with lower carbon intensity.
-- **Auto-Scaling Recommendations:** Confirms specific guidance is provided based on the target region's current load and configuration.
-
-## 4. Resource Optimization Agent
-
-The Resource Optimization tests confirm our system can successfully identify historically underutilized or overallocated CI/CD resources to prevent wasted energy.
-
-![Optimization Agent Tests](/Screenshot%202026-04-07%20115729.png)
-
-**Key Test Validations:**
-- **High CPU/Memory Detection:** Validates the statistical outlier thresholds that identify bloated workloads.
-- **Wasted Energy Calculation:** Aggregates total energy squandered by failed pipeline runs.
-- **Opportunity Sorting:** Ensures optimization opportunities are properly sorted by their potential impact score.
+**Characteristics of PyTest Execution:**
+- **Execution:** Automated, fast, and repeatable.
+- **Results:** Successfully ran and passed **53 automated tests** across all agent modules.
+- **Feedback:** Provided immediate feedback on code health, including catching deprecation warnings (e.g., `datetime.utcnow()`) for future maintenance.
 
 ---
 
-## Agent Test Suites Comparison
+## Comparison: Excel vs. TestGPT vs. PyTest
 
-| Agent Test Suite | Focus Area | Key Validation | Execution Focus |
-|------------------|------------|----------------|-----------------|
-| **Carbon Footprint** | Mathematical accuracy of emissions | Multi-job kWh & CO₂ aggregation | Region-based intensity math |
-| **Sustainability Compliance** | Static code analysis | Pattern matching via Regex/AST | False positive prevention |
-| **Eco-Friendly Deployment** | Workload scheduling | Lowest-carbon region discovery | Constraint-based optimization |
-| **Resource Optimization** | Historical utilization analysis | Outlier & wasted energy detection | Impact-based prioritization |
+| Feature / Tool | Excel (Manual) | TestGPT (AI-Generated) | PyTest (Automated Execution) |
+|----------------|----------------|------------------------|------------------------------|
+| **Primary Use** | Baseline planning & requirements mapping | Expanding coverage & finding edge cases | Automated verification & CI/CD integration |
+| **Speed of Creation** | Slow (Manual entry) | Fast (Prompt-based) | Medium (Requires coding) |
+| **Coverage Scope** | Core functionality | Edge cases, tradeoffs, limits | Code-level logic & mathematical accuracy |
+| **Execution** | Manual verification required | Theoretical/Scenario generation | Fully automated pipeline execution |
+| **Maintenance** | High effort to update | Easy to regenerate | Requires code maintenance, but catches regressions |
+| **Strengths** | Human readability, stakeholder alignment | Creative edge-case discovery | Verifiable proof of correctness, regression testing |
 
-### Summary Description
+### Conclusion
 
-The EcoGuard system relies on these diverse test suites to ensure reliable and eco-conscious decision-making. The tests validate everything from micro-level code inefficiencies (Compliance Agent) to macro-level deployment scheduling (Deployment Agent). By running robust, mathematically sound tests with mocked variations in grid carbon intensities, EcoGuard ensures that the insights and optimization recommendations presented to users are highly accurate, strictly tested, and consistently lead to a verifiable reduction in overall software carbon footprint.
+By combining manual test design in **Excel** for baseline requirements, **TestGPT** for expanding edge-case coverage, and **PyTest** for rigorous automated execution, EcoGuard achieves a comprehensive and robust testing strategy. This hybrid approach ensures that our sustainability agents are not only theoretically sound but also practically verified against both common and complex scenarios.
