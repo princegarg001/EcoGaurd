@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-04-27T02:27:12.379076",
+  "timestamp": "2026-04-28T02:34:22.216188",
   "data_source": "real",
   "project_id": "80410036",
   "latest_daily": {
-    "date": "2026-04-27",
+    "date": "2026-04-28",
     "total_energy_kwh": 0.0292,
-    "total_emissions_kg_co2": 0.0183,
+    "total_emissions_kg_co2": 0.0182,
     "builds_count": 56,
     "deployments_count": 6,
     "compliance_issues_opened": 2,
@@ -16,10 +16,10 @@
     "wasted_energy_kwh": 0
   },
   "latest_weekly": {
-    "week_start": "2026-04-21",
-    "week_end": "2026-04-27",
+    "week_start": "2026-04-22",
+    "week_end": "2026-04-28",
     "total_energy_kwh": 0.2044,
-    "total_emissions_kg_co2": 0.1294,
+    "total_emissions_kg_co2": 0.129,
     "builds_count": 392,
     "deployments_count": 42,
     "compliance_issues_opened": 14,
@@ -33,17 +33,17 @@
   },
   "latest_monthly": {
     "month": "2026-03",
-    "total_energy_kwh": 0.7912,
-    "total_emissions_kg_co2": 0.5168,
-    "builds_count": 1512,
+    "total_energy_kwh": 0.8014,
+    "total_emissions_kg_co2": 0.5229,
+    "builds_count": 1532,
     "deployments_count": 176,
     "compliance_issues_opened": 60,
     "compliance_issues_resolved": 60,
     "avg_emissions_per_build_kg_co2": 0.0003,
-    "avg_emissions_per_deployment_kg_co2": 0.0029,
-    "optimization_recommendations_count": 726,
-    "failed_jobs_count": 6,
-    "wasted_energy_kwh": 0.0114,
+    "avg_emissions_per_deployment_kg_co2": 0.003,
+    "optimization_recommendations_count": 725,
+    "failed_jobs_count": 5,
+    "wasted_energy_kwh": 0.0096,
     "energy_reduction_pct": 0,
     "sci_score": 0.0003
   },
@@ -58,8 +58,8 @@
       "target_unit": "kg_co2",
       "baseline_value": 125,
       "deadline": "2026-12-31",
-      "current_value": 1.83,
-      "progress_percent": 63.4,
+      "current_value": 1.82,
+      "progress_percent": 63.6,
       "status": "on_track"
     },
     {
@@ -80,7 +80,7 @@
     "zone": "IN",
     "carbon_intensity_g_per_kwh": 625,
     "total_energy_kwh": 0.0292,
-    "total_emissions_kg_co2": 0.0183,
+    "total_emissions_kg_co2": 0.0182,
     "jobs_analyzed": 56,
     "recommendations": [
       "\u2705 Pipeline is running efficiently! Keep up the good work."
