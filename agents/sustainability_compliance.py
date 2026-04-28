@@ -70,7 +70,7 @@ class SustainabilityAnalyzer:
             ))
 
         # Pattern 3: Loop with string concatenation
-        pattern3 = r'for\s+\w+\s+in\s+.*?:\s*\n\s+.*?\+=\s*["\']'
+        pattern3 = r'for\s+\w+\s+in\s+.*?:\s*\n\s+.*?\+=.*'
         matches = re.finditer(pattern3, code, re.MULTILINE)
         for match in matches:
             line_num = code[:match.start()].count('\n') + 1

@@ -123,7 +123,16 @@ class TestDeploymentOptimizer(unittest.TestCase):
 
     def test_auto_scaling_recommendations(self):
         """Test auto-scaling recommendations."""
-        recommendation = self.optimizer.analyze_deployment(self.deployment)
+        deployment_no_scaling = DeploymentConfig(
+            deployment_id='deploy-124',
+            target_region='US-CA',
+            deployment_size_mb=500,
+            estimated_duration_minutes=15,
+            requires_downtime=False,
+            auto_scaling_enabled=False,
+            resource_requirements={'cpu_cores': 4, 'memory_gb': 8},
+        )
+        recommendation = self.optimizer.analyze_deployment(deployment_no_scaling)
 
         # Should have recommendations
         self.assertGreater(len(recommendation.auto_scaling_recommendations), 0)

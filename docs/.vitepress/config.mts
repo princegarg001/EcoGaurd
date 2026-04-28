@@ -46,7 +46,8 @@ export default withMermaid(
               { text: 'API Setup', link: '/api-setup' },
               { text: 'Live Dashboard', link: '/live-dashboard' },
               { text: 'CI/CD', link: '/ci-cd' },
-              { text: 'Testing', link: '/testing' }
+              { text: 'Testing', link: '/testing' },
+              { text: 'Test Cases', link: '/test-cases' }
             ]
           },
           {

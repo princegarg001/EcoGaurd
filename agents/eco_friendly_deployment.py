@@ -300,7 +300,7 @@ class DeploymentOptimizer:
         """Generate auto-scaling recommendations."""
         recommendations = []
 
-        if not region_data.auto_scaling_enabled:
+        if not deployment.auto_scaling_enabled:
             recommendations.append(
                 '✅ Enable auto-scaling to reduce idle resource consumption'
             )

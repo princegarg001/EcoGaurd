@@ -42,7 +42,7 @@ class TestMetricsAggregator(unittest.TestCase):
         # Add 7 days of metrics
         week_start = (self.today - timedelta(days=self.today.weekday())).strftime('%Y-%m-%d')
         for i in range(7):
-            date = (self.today - timedelta(days=i)).strftime('%Y-%m-%d')
+            date = (datetime.fromisoformat(week_start) + timedelta(days=i)).strftime('%Y-%m-%d')
             daily = DailyMetrics(
                 date=date,
                 total_energy_kwh=45.0,
@@ -69,7 +69,7 @@ class TestMetricsAggregator(unittest.TestCase):
         """Test monthly aggregation."""
         # Add weekly metrics
         month = self.today.strftime('%Y-%m')
-        week_start = (self.today - timedelta(days=self.today.weekday())).strftime('%Y-%m-%d')
+        week_start = datetime(self.today.year, self.today.month, 1).strftime('%Y-%m-%d')
 
         weekly = WeeklyMetrics(
             week_start=week_start,
@@ -98,7 +98,7 @@ class TestMetricsAggregator(unittest.TestCase):
     def test_sci_score_calculation(self):
         """Test SCI score calculation."""
         month = self.today.strftime('%Y-%m')
-        week_start = (self.today - timedelta(days=self.today.weekday())).strftime('%Y-%m-%d')
+        week_start = datetime(self.today.year, self.today.month, 1).strftime('%Y-%m-%d')
 
         weekly = WeeklyMetrics(
             week_start=week_start,

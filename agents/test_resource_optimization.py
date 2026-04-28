@@ -31,7 +31,8 @@ class TestMetricsAnalyzer(unittest.TestCase):
         """Test detection of high CPU usage."""
         metrics = [
             JobMetric('job-1', 'build', '2024-03-19T10:00Z', 300, 2, 50, 1024, 60, 'success'),
-            JobMetric('job-2', 'test', '2024-03-19T10:00Z', 600, 8, 30, 4096, 40, 'success'),
+            JobMetric('job-2', 'test', '2024-03-19T10:00Z', 600, 16, 30, 4096, 40, 'success'),
+            JobMetric('job-3', 'deploy', '2024-03-19T10:00Z', 100, 1, 50, 512, 60, 'success'),
         ]
         self.analyzer.add_metrics(metrics)
         _, opportunities = self.analyzer.analyze()
@@ -44,6 +45,7 @@ class TestMetricsAnalyzer(unittest.TestCase):
         metrics = [
             JobMetric('job-1', 'build', '2024-03-19T10:00Z', 300, 2, 50, 1024, 60, 'success'),
             JobMetric('job-2', 'test', '2024-03-19T10:00Z', 600, 2, 50, 8192, 40, 'success'),
+            JobMetric('job-3', 'deploy', '2024-03-19T10:00Z', 100, 1, 50, 512, 60, 'success'),
         ]
         self.analyzer.add_metrics(metrics)
         _, opportunities = self.analyzer.analyze()
@@ -56,6 +58,7 @@ class TestMetricsAnalyzer(unittest.TestCase):
         metrics = [
             JobMetric('job-1', 'build', '2024-03-19T10:00Z', 300, 2, 50, 1024, 60, 'success'),
             JobMetric('job-2', 'test', '2024-03-19T10:00Z', 3600, 2, 50, 1024, 60, 'success'),
+            JobMetric('job-3', 'deploy', '2024-03-19T10:00Z', 100, 1, 50, 512, 60, 'success'),
         ]
         self.analyzer.add_metrics(metrics)
         _, opportunities = self.analyzer.analyze()
