@@ -35,6 +35,7 @@ export default withMermaid(
               { text: 'SDLC Models', link: '/sdlc-models' },
               { text: 'Requirements Analysis', link: '/requirements-analysis' },
               { text: 'SRS Document', link: '/srs-document' },
+              { text: 'Work Breakdown Structure', link: '/work-breakdown-structure' },
               { text: '📐 Use Case Diagram', link: '/use-case-diagram' },
               { text: '📐 UML Diagrams', link: '/uml-diagrams' },
               { text: 'Real Data Collection', link: '/real-data' }

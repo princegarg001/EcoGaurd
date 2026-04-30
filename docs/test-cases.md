@@ -31,7 +31,7 @@ To expand our test coverage and identify edge cases we might have missed, we uti
 
 Finally, we implemented the test scenarios as automated unit and integration tests using Python's `pytest` framework. 
 
-![PyTest Execution Results](/Screenshot%202026-04-28%20120624.png)
+![PyTest Execution Results - test_compliance.py](/pytest-compliance-success.png)
 
 **Characteristics of PyTest Execution:**
 - **Execution:** Automated, fast, and repeatable.
