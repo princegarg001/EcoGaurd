@@ -1,21 +1,5 @@
 [
   {
-    "week_start": "2026-04-13",
-    "week_end": "2026-04-19",
-    "total_energy_kwh": 0.2044,
-    "total_emissions_kg_co2": 0.1322,
-    "builds_count": 392,
-    "deployments_count": 42,
-    "compliance_issues_opened": 14,
-    "compliance_issues_resolved": 14,
-    "avg_emissions_per_build_kg_co2": 0.0003,
-    "avg_emissions_per_deployment_kg_co2": 0.0031,
-    "optimization_recommendations_count": 168,
-    "failed_jobs_count": 0,
-    "wasted_energy_kwh": 0,
-    "energy_reduction_pct": -6.13
-  },
-  {
     "week_start": "2026-04-14",
     "week_end": "2026-04-20",
     "total_energy_kwh": 0.2044,
@@ -190,5 +174,21 @@
     "failed_jobs_count": 0,
     "wasted_energy_kwh": 0,
     "energy_reduction_pct": -2.01
+  },
+  {
+    "week_start": "2026-04-25",
+    "week_end": "2026-05-01",
+    "total_energy_kwh": 0.2126,
+    "total_emissions_kg_co2": 0.1324,
+    "builds_count": 290,
+    "deployments_count": 32,
+    "compliance_issues_opened": 17,
+    "compliance_issues_resolved": 14,
+    "avg_emissions_per_build_kg_co2": 0.0005,
+    "avg_emissions_per_deployment_kg_co2": 0.0041,
+    "optimization_recommendations_count": 132,
+    "failed_jobs_count": 0,
+    "wasted_energy_kwh": 0,
+    "energy_reduction_pct": -4.01
   }
 ]
